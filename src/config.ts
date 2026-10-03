@@ -61,7 +61,7 @@ export const DEFAULT_CONFIG: DashboardConfig = {
     maxResults: 5,
     debugMap: false,
   },
-  tasks: { filters: {}, refreshRateMs: 30000, autoRotateMs: 4000 },
+  tasks: { filters: { finished: false }, refreshRateMs: 30000, autoRotateMs: 4000 },
   status: { intervalMs: 30000 },
   placeholders: [
     { title: 'Weather', description: 'Outdoor conditions at a glance.' },

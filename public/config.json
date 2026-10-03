@@ -10,7 +10,7 @@
     "debugMap": true
   },
   "tasks": {
-    "filters": { "status": "to-start" },
+    "filters": { "finished": false },
     "refreshRateMs": 30000,
     "autoRotateMs": 4000
   },

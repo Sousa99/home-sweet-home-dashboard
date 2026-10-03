@@ -54,11 +54,11 @@ Each stop:
 
 ## tasks
 
-| Key             | Default | Description                                                   |
-| --------------- | ------- | ------------------------------------------------------------- |
-| `filters`       | `{}`    | `TaskFilters` for the deck (e.g. `{ "status": "to-start" }`). |
-| `refreshRateMs` | `30000` | Polling interval for the task list.                           |
-| `autoRotateMs`  | `4000`  | Deck auto-rotation delay; `0` disables rotation.              |
+| Key             | Default               | Description                                                                       |
+| --------------- | --------------------- | --------------------------------------------------------------------------------- |
+| `filters`       | `{ finished: false }` | `TaskFilters` for the deck (e.g. `{ "finished": false }` shows all active tasks). |
+| `refreshRateMs` | `30000`               | Polling interval for the task list.                                               |
+| `autoRotateMs`  | `4000`                | Deck auto-rotation delay; `0` disables rotation.                                  |
 
 ## status
 

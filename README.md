@@ -76,7 +76,7 @@ All block behavior lives in [`public/config.json`](public/config.json). See
     "maxResults": 5,
   },
   "tasks": {
-    "filters": { "status": "to-start" },
+    "filters": { "finished": false },
     "refreshRateMs": 30000,
     "autoRotateMs": 4000,
   },
