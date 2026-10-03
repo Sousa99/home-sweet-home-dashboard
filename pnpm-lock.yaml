@@ -8,17 +8,17 @@ importers:
   .:
     dependencies:
       '@sousa99/bus-catcher-components':
-        specifier: ^0.1.1
-        version: 0.1.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: ^0.1.2
+        version: 0.1.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@sousa99/current-time-components':
         specifier: ^0.1.1
         version: 0.1.1(lucide-react@0.469.0(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@sousa99/fly-over-tracker-components':
-        specifier: ^0.2.0
-        version: 0.2.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react-leaflet@5.0.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
+        specifier: ^0.3.0
+        version: 0.3.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react-leaflet@5.0.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
       '@sousa99/procrastinator-tracker-components':
-        specifier: ^0.1.1
-        version: 0.1.1(@types/react@19.3.0)(lucide-react@0.469.0(react@19.3.0))(motion@13.5.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: ^0.1.2
+        version: 0.1.2(@types/react@19.3.0)(lucide-react@0.469.0(react@19.3.0))(motion@13.5.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       lucide-react:
         specifier: ^0.469.0
         version: 0.469.0(react@19.3.0)
@@ -942,11 +942,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@sousa99/bus-catcher-components@0.1.1':
+  '@sousa99/bus-catcher-components@0.1.2':
     resolution:
       {
-        integrity: sha512-uGDKVbC0o5xZt6f7ad+/M2sk0hprn5yqXjqBocQpu0RpvikwxT4D3ohRT+jJbTtyY2j99GcIYWEHgZen4Y99Ng==,
-        tarball: https://npm.pkg.github.com/download/@sousa99/bus-catcher-components/0.1.1/4caeef19ba3013f732e7b8ae30cde90bd1960460,
+        integrity: sha512-HQzmZbAtdmXBvK+bf6j+gsH8x3yJ+oJFkJ2sNXjdLS4SJ12KyaRyl+gsSe3oYmGWHcYuqXm0f51Fs2BlaeRscA==,
+        tarball: https://npm.pkg.github.com/download/@sousa99/bus-catcher-components/0.1.2/a8cb89cd8c050b35b72865802b895fbdb547ac96,
       }
     engines: { node: '>=24.0.0' }
     peerDependencies:
@@ -965,11 +965,11 @@ packages:
       react: ^19.0.0
       react-dom: ^19.0.0
 
-  '@sousa99/fly-over-tracker-components@0.2.0':
+  '@sousa99/fly-over-tracker-components@0.3.0':
     resolution:
       {
-        integrity: sha512-h97SEvxhkqRdbCyrc0jocV8xQ4Qo77c+ACet/Wm1QHPxk8ZXXeetxrw7AiewG19eeu8o8CY6TEA1meo36a8lBA==,
-        tarball: https://npm.pkg.github.com/download/@sousa99/fly-over-tracker-components/0.2.0/537f576fba3da464beea11c414d0c5354f5bafca,
+        integrity: sha512-NoioEGaGYuApVHnTFY9hjZorLftndo7gLGdoGPB5tuIsI4eG2Xmy5fvM+Vph2zy3szLgfaSH2LydyNEHt48y6g==,
+        tarball: https://npm.pkg.github.com/download/@sousa99/fly-over-tracker-components/0.3.0/7d30cc2d556241ac7d613e4ef5833bb242b26c48,
       }
     engines: { node: '>=24.0.0' }
     peerDependencies:
@@ -993,11 +993,11 @@ packages:
       typescript: ^5.7.0
       typescript-eslint: ^8.18.0
 
-  '@sousa99/procrastinator-tracker-components@0.1.1':
+  '@sousa99/procrastinator-tracker-components@0.1.2':
     resolution:
       {
-        integrity: sha512-cyFzYXYpGt259MyoiYD26uMjdZVCw/8P79/x8zfjRMXubnq16TsqqwkvXFDe+kLi2ChQp09Je3wt60xgXZT8mw==,
-        tarball: https://npm.pkg.github.com/download/@sousa99/procrastinator-tracker-components/0.1.1/cf5987aeedfb68fa6315e1c5499446612a78f60f,
+        integrity: sha512-wrxu7nEZ8x1WPXNeyuugE5Qq/70CSqEqDYVx6lB9lrSH3ATM2PnC2VoUrpLmPj+YGh0FR/rqtPYy7MqHm0YwKA==,
+        tarball: https://npm.pkg.github.com/download/@sousa99/procrastinator-tracker-components/0.1.2/843e7e4c7fb1e00a28a26f204ab5da716bed3447,
       }
     engines: { node: '>=24.0.0' }
     peerDependencies:
@@ -3555,7 +3555,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.63.6':
     optional: true
 
-  '@sousa99/bus-catcher-components@0.1.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@sousa99/bus-catcher-components@0.1.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@tanstack/react-query': 5.104.0(react@19.3.0)
       react: 19.3.0
@@ -3568,7 +3568,7 @@ snapshots:
       react-dom: 19.3.0(react@19.3.0)
       react-router: 7.18.4(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
 
-  '@sousa99/fly-over-tracker-components@0.2.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react-leaflet@5.0.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)':
+  '@sousa99/fly-over-tracker-components@0.3.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react-leaflet@5.0.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@tanstack/react-query': 5.104.0(react@19.3.0)
       leaflet: 1.9.4
@@ -3586,7 +3586,7 @@ snapshots:
       typescript: 5.9.3
       typescript-eslint: 8.71.0(eslint@9.39.5(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3)
 
-  '@sousa99/procrastinator-tracker-components@0.1.1(@types/react@19.3.0)(lucide-react@0.469.0(react@19.3.0))(motion@13.5.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@sousa99/procrastinator-tracker-components@0.1.2(@types/react@19.3.0)(lucide-react@0.469.0(react@19.3.0))(motion@13.5.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@radix-ui/react-use-controllable-state': 1.2.6(@types/react@19.3.0)(react@19.3.0)
       '@tanstack/react-query': 5.104.0(react@19.3.0)

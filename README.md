@@ -9,8 +9,8 @@ module source.
 ┌───────────────────────────────────────────────┬───────────────────────────────────────────────┐
 │ Home Sweet Home · Saturday, 28 September 2026 │  Clock                                        │
 ├────────────────────┬──────────────────────────┴───────────────────────────────────────────────┤
-│ Closest aircraft   │  Flight map                                                          │
-│ Flights list (5)   │  (FlyOverMapCard)                                                     │
+│ Flights            │  Flights                                                                │
+│ Closest + list (5) │  Flight map (FlyOverMapCard)                                            │
 ├────────────────────┼───────────────────────────────────────────────────────────────────────┤
 │                    │  Tasks (auto-rotating deck)                                           │
 │                    │  ───────────────────────────────────────────────────────────────      │
@@ -24,16 +24,15 @@ module source.
 
 ## What's on screen
 
-| Block             | Widget                                 | Module package                               |
-| ----------------- | -------------------------------------- | -------------------------------------------- |
-| Clock             | `ClockCard`                            | `@sousa99/current-time-components`           |
-| Flights — closest | `ClosestAircraftCard`                  | `@sousa99/fly-over-tracker-components`       |
-| Flights — list    | `FlyOverListCard` (`maxResults`)       | `@sousa99/fly-over-tracker-components`       |
-| Flights — map     | `FlyOverMapCard`                       | `@sousa99/fly-over-tracker-components`       |
-| Tasks             | `TaskDeckWrapper`                      | `@sousa99/procrastinator-tracker-components` |
-| Bus stops         | `StopCard` × N (configured stops)      | `@sousa99/bus-catcher-components`            |
-| Status strip      | health probes per module               | — (dashboard)                                |
-| Placeholders      | "coming soon" tiles for future modules | — (dashboard)                                |
+| Block                    | Widget                                 | Module package                               |
+| ------------------------ | -------------------------------------- | -------------------------------------------- |
+| Clock                    | `ClockCard`                            | `@sousa99/current-time-components`           |
+| Flights — closest + list | `FlyOverClosestPanel` (`maxResults`)   | `@sousa99/fly-over-tracker-components`       |
+| Flights — map            | `FlyOverMapCard`                       | `@sousa99/fly-over-tracker-components`       |
+| Tasks                    | `TaskDeckWrapper`                      | `@sousa99/procrastinator-tracker-components` |
+| Bus stops                | `StopCard` × N (configured stops)      | `@sousa99/bus-catcher-components`            |
+| Status strip             | health probes per module               | — (dashboard)                                |
+| Placeholders             | "coming soon" tiles for future modules | — (dashboard)                                |
 
 The grid is **rem-based** (root font-size scales with viewport width) and scroll-free, so it
 renders well from 720p up to 4K.

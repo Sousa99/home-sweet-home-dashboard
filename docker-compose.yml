@@ -8,7 +8,7 @@ name: home-sweet-home-dashboard
 
 services:
   bus-catcher-backend:
-    image: ghcr.io/sousa99/bus-catcher-backend:${HSH_BUS_CATCHER_BACKEND_VERSION:-0.1.0}
+    image: ghcr.io/sousa99/bus-catcher-backend:${HSH_BUS_CATCHER_BACKEND_VERSION:-0.1.2}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['node', 'dist/index.js', '--http']
     environment:
@@ -30,7 +30,7 @@ services:
     restart: unless-stopped
 
   fly-over-tracker-backend:
-    image: ghcr.io/sousa99/fly-over-tracker-backend:${HSH_FLY_OVER_TRACKER_BACKEND_VERSION:-0.2.0}
+    image: ghcr.io/sousa99/fly-over-tracker-backend:${HSH_FLY_OVER_TRACKER_BACKEND_VERSION:-0.3.0}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['node', 'dist/index.js', '--http']
     environment:
@@ -50,7 +50,7 @@ services:
     restart: unless-stopped
 
   procrastinator-tracker-backend:
-    image: ghcr.io/sousa99/procrastinator-tracker-backend:${HSH_PROCRASTINATOR_TRACKER_BACKEND_VERSION:-0.1.0}
+    image: ghcr.io/sousa99/procrastinator-tracker-backend:${HSH_PROCRASTINATOR_TRACKER_BACKEND_VERSION:-0.1.2}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['sh', '-c', 'node dist/migrate.js && node dist/index.js --http']
     environment:
@@ -74,7 +74,7 @@ services:
   # MCP servers (streamable HTTP at /mcp) — the same backend images in --mcp
   # mode. opencode.json connects to these via the host ports 3200/3201/3202.
   bus-catcher-mcp:
-    image: ghcr.io/sousa99/bus-catcher-backend:${HSH_BUS_CATCHER_BACKEND_VERSION:-0.1.0}
+    image: ghcr.io/sousa99/bus-catcher-backend:${HSH_BUS_CATCHER_BACKEND_VERSION:-0.1.2}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['node', 'dist/index.js', '--mcp']
     environment:
@@ -98,7 +98,7 @@ services:
     restart: unless-stopped
 
   fly-over-tracker-mcp:
-    image: ghcr.io/sousa99/fly-over-tracker-backend:${HSH_FLY_OVER_TRACKER_BACKEND_VERSION:-0.2.0}
+    image: ghcr.io/sousa99/fly-over-tracker-backend:${HSH_FLY_OVER_TRACKER_BACKEND_VERSION:-0.3.0}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['node', 'dist/index.js', '--mcp']
     environment:
@@ -120,7 +120,7 @@ services:
     restart: unless-stopped
 
   procrastinator-tracker-mcp:
-    image: ghcr.io/sousa99/procrastinator-tracker-backend:${HSH_PROCRASTINATOR_TRACKER_BACKEND_VERSION:-0.1.0}
+    image: ghcr.io/sousa99/procrastinator-tracker-backend:${HSH_PROCRASTINATOR_TRACKER_BACKEND_VERSION:-0.1.2}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['sh', '-c', 'node dist/migrate.js && node dist/index.js --mcp']
     environment:

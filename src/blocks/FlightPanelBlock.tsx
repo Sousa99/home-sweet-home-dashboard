@@ -1,9 +1,9 @@
-import { FlyOverListCard } from '@sousa99/fly-over-tracker-components';
+import { FlyOverClosestPanel } from '@sousa99/fly-over-tracker-components';
 import type { FlightsConfig } from '../config';
 
-export function FlightListBlock({ config, baseUrl }: { config: FlightsConfig; baseUrl: string }) {
+export function FlightPanelBlock({ config, baseUrl }: { config: FlightsConfig; baseUrl: string }) {
   return (
-    <FlyOverListCard
+    <FlyOverClosestPanel
       location={config.location}
       autoRefresh={config.autoRefresh}
       baseUrl={baseUrl}

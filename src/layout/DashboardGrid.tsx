@@ -1,13 +1,13 @@
 import type { DashboardConfig } from '../config';
 import { BusBlock } from '../blocks/BusBlock';
-import { ClosestFlightBlock } from '../blocks/ClosestFlightBlock';
 import { ClockBlock } from '../blocks/ClockBlock';
-import { FlightListBlock } from '../blocks/FlightListBlock';
 import { FlightMapBlock } from '../blocks/FlightMapBlock';
+import { FlightPanelBlock } from '../blocks/FlightPanelBlock';
 import { PlaceholderBlock } from '../blocks/PlaceholderBlock';
 import { StatusBlock } from '../blocks/StatusBlock';
 import { TasksBlock } from '../blocks/TasksBlock';
 import { DateReadout } from '../components/DateReadout';
+import { Plane } from 'lucide-react';
 
 /**
  * Same-origin base URLs handed to each module's widget. The nginx / vite
@@ -34,14 +34,23 @@ export function DashboardGrid({ config }: { config: DashboardConfig }) {
 
       <main className="col-span-12 grid min-h-0 grid-cols-12 gap-4">
         <section className="col-span-4 flex min-h-0 flex-col gap-3">
-          <ClosestFlightBlock config={config.flights} baseUrl={BASE_URLS.fly} />
+          <header className="flex items-center gap-2 text-slate-700">
+            <Plane className="h-5 w-5 text-amber-600" aria-hidden="true" />
+            <h2 className="text-base font-semibold uppercase tracking-wider">Flights</h2>
+          </header>
           <div className="min-h-0 flex-1">
-            <FlightListBlock config={config.flights} baseUrl={BASE_URLS.fly} />
+            <FlightPanelBlock config={config.flights} baseUrl={BASE_URLS.fly} />
           </div>
         </section>
 
-        <section className="col-span-4 min-h-0">
-          <FlightMapBlock config={config.flights} baseUrl={BASE_URLS.fly} />
+        <section className="col-span-4 flex min-h-0 flex-col gap-3">
+          <header className="flex items-center gap-2 text-slate-700">
+            <Plane className="h-5 w-5 text-amber-600" aria-hidden="true" />
+            <h2 className="text-base font-semibold uppercase tracking-wider">Flights</h2>
+          </header>
+          <div className="min-h-0 flex-1">
+            <FlightMapBlock config={config.flights} baseUrl={BASE_URLS.fly} />
+          </div>
         </section>
 
         <section className="col-span-4 flex min-h-0 flex-col gap-4">
