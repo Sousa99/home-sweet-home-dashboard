@@ -1,0 +1,16 @@
+# Dev override: expose the module backends on the standardized host ports so
+# `pnpm dev` (vite.config.ts proxy) can reach them.
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+
+services:
+  bus-catcher-backend:
+    ports:
+      - '3100:3000'
+
+  fly-over-tracker-backend:
+    ports:
+      - '3101:3000'
+
+  procrastinator-tracker-backend:
+    ports:
+      - '3102:3000'

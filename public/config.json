@@ -1,0 +1,19 @@
+{
+  "clock": { "defaultFormat": "24h", "switchable": false },
+  "bus": { "stops": [] },
+  "flights": {
+    "location": { "lat": 38.7223, "lng": -9.1393, "radiusKm": 100 },
+    "autoRefresh": 30
+  },
+  "tasks": {
+    "filters": { "status": "to-start" },
+    "refreshRateMs": 30000,
+    "autoRotateMs": 4000
+  },
+  "status": { "intervalMs": 30000 },
+  "placeholders": [
+    { "title": "Weather", "description": "Outdoor conditions at a glance." },
+    { "title": "Energy", "description": "Household power and consumption." },
+    { "title": "Media", "description": "Now playing and upcoming releases." }
+  ]
+}

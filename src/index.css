@@ -1,0 +1,31 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #d97706;
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/*
+ * TV / large-screen scaling: the whole dashboard is laid out in rem, so a
+ * fluid root font size scales every block (and the widgets' own ResizeObserver
+ * font scaling) from a 720p floor up to 4K.
+ */
+:root {
+  font-size: clamp(14px, 0.75vw, 36px);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #fffbeb;
+  color: #0f172a;
+  font-family: var(--font-sans);
+}
