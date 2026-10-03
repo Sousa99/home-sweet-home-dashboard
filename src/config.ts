@@ -24,6 +24,8 @@ export interface FlightsConfig {
   location: { lat: number; lng: number; radiusKm: number };
   autoRefresh: RefreshRate;
   maxResults: number;
+  /** Log the map's measured size/zoom/fits and tile load/error totals to the console. */
+  debugMap: boolean;
 }
 
 export interface TasksConfig {
@@ -57,6 +59,7 @@ export const DEFAULT_CONFIG: DashboardConfig = {
     location: { lat: 38.7223, lng: -9.1393, radiusKm: 100 },
     autoRefresh: 30,
     maxResults: 5,
+    debugMap: false,
   },
   tasks: { filters: {}, refreshRateMs: 30000, autoRotateMs: 4000 },
   status: { intervalMs: 30000 },

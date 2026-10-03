@@ -50,6 +50,7 @@ Each stop:
 | `location`    | Lisbon (`38.7223, -9.1393`) | `{ lat, lng, radiusKm }` centre of the fly-over query.       |
 | `autoRefresh` | `30`                        | Refresh rate: `"off"` or `5`, `10`, `30`, `60` (seconds).    |
 | `maxResults`  | `5`                         | Max aircraft in the list (closest first); the map shows all. |
+| `debugMap`    | `false`                     | Log the map's measured size, zoom, re-fits, and tile load/error totals to the browser console (`[fly-over-map]`). |
 
 ## tasks
 

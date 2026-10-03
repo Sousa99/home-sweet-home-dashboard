@@ -6,7 +6,8 @@
   "flights": {
     "location": { "lat": 38.804428, "lng": -9.123621, "radiusKm": 20 },
     "autoRefresh": 20,
-    "maxResults": 5
+    "maxResults": 5,
+    "debugMap": true
   },
   "tasks": {
     "filters": { "status": "to-start" },

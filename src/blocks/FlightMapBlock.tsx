@@ -7,6 +7,7 @@ export function FlightMapBlock({ config, baseUrl }: { config: FlightsConfig; bas
       location={config.location}
       autoRefresh={config.autoRefresh}
       baseUrl={baseUrl}
+      debug={config.debugMap}
       className="h-full w-full"
     />
   );
