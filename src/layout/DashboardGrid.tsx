@@ -72,7 +72,7 @@ export function DashboardGrid({ config }: { config: DashboardConfig }) {
       </section>
 
       <div className="col-span-12">
-        <StatusBlock intervalMs={config.status.intervalMs} />
+        <StatusBlock intervalMs={config.status.intervalMs} flyLocation={config.flights.location} />
       </div>
     </div>
   );

@@ -1,14 +1,20 @@
 import { useEffect, useState } from 'react';
-import { checkAllModules, type ModuleStatus } from '../lib/status';
+import { checkAllModules, type LocationQuery, type ModuleStatus } from '../lib/status';
 
-export function StatusBlock({ intervalMs }: { intervalMs: number }) {
+export function StatusBlock({
+  intervalMs,
+  flyLocation,
+}: {
+  intervalMs: number;
+  flyLocation?: LocationQuery;
+}) {
   const [statuses, setStatuses] = useState<ModuleStatus[]>([]);
   const [lastChecked, setLastChecked] = useState<number | null>(null);
 
   useEffect(() => {
     let active = true;
     const tick = async () => {
-      const results = await checkAllModules();
+      const results = await checkAllModules(flyLocation);
       if (!active) return;
       setStatuses(results);
       setLastChecked(Date.now());
@@ -19,7 +25,7 @@ export function StatusBlock({ intervalMs }: { intervalMs: number }) {
       active = false;
       window.clearInterval(id);
     };
-  }, [intervalMs]);
+  }, [intervalMs, flyLocation]);
 
   return (
     <footer

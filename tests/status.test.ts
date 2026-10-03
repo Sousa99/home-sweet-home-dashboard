@@ -42,4 +42,14 @@ describe('checkAllModules', () => {
     expect(results.map((r) => r.key)).toEqual(['bus', 'tasks', 'fly']);
     expect(results.every((r) => r.up)).toBe(true);
   });
+
+  it('probes fly through the configured location so it reuses the snapshot cache', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ status: 200 });
+    vi.stubGlobal('fetch', fetchMock);
+    await checkModule('fly', { flyLocation: { lat: 38.8, lng: -9.1, radiusKm: 20 } });
+    expect(fetchMock).toHaveBeenCalledWith(
+      '/api/fly/api/fly-overs?lat=38.8&lng=-9.1&radiusKm=20',
+      expect.anything(),
+    );
+  });
 });
