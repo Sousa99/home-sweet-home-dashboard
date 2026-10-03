@@ -14,7 +14,8 @@ vi.mock('@sousa99/current-time-components', () => ({
 
 vi.mock('@sousa99/fly-over-tracker-components', () => ({
   ClosestAircraftCard: () => <div data-testid="closest-aircraft" />,
-  FlyOverWidget: () => <div data-testid="fly-over-widget" />,
+  FlyOverMapCard: () => <div data-testid="fly-over-map" />,
+  FlyOverListCard: () => <div data-testid="fly-over-list" />,
 }));
 
 vi.mock('@sousa99/procrastinator-tracker-components', () => ({
@@ -40,8 +41,9 @@ describe('DashboardGrid', () => {
     expect(screen.getByText('Home Sweet Home')).toBeInTheDocument();
     expect(screen.getByTestId('clock-card')).toBeInTheDocument();
     expect(screen.getByTestId('stop-card')).toBeInTheDocument();
-    expect(screen.getByTestId('fly-over-widget')).toBeInTheDocument();
     expect(screen.getByTestId('closest-aircraft')).toBeInTheDocument();
+    expect(screen.getByTestId('fly-over-map')).toBeInTheDocument();
+    expect(screen.getByTestId('fly-over-list')).toBeInTheDocument();
     expect(screen.getByTestId('task-deck')).toBeInTheDocument();
     expect(screen.getAllByText('Coming soon')).toHaveLength(3);
   });

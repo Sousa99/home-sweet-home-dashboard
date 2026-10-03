@@ -22,7 +22,7 @@
   "dependencies": {
     "@sousa99/bus-catcher-components": "^0.1.1",
     "@sousa99/current-time-components": "^0.1.1",
-    "@sousa99/fly-over-tracker-components": "^0.1.1",
+    "@sousa99/fly-over-tracker-components": "^0.2.0",
     "@sousa99/procrastinator-tracker-components": "^0.1.1",
     "lucide-react": "^0.469.0",
     "react": "^19.3.0",

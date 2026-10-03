@@ -6,30 +6,34 @@ module backends from their **published** GHCR images, so this repository stays s
 module source.
 
 ```
-┌──────────────────────────────┬────────────────────────────────┬─────────────────┐
-│ Home Sweet Home              │                                │  Clock          │
-│ Saturday, 28 September 2026  │                                │                 │
-├──────────────────────────────┤   Flights (map, hero)          ├─────────────────┤
-│  Bus                         │   Closest aircraft             │  Tasks          │
-│  StopCard 1                  │                                │  (auto-rotating │
-│  StopCard 2                  │                                │   deck)         │
-├──────────────────────────────┴────────────────────────────────┴─────────────────┤
-│ Placeholder (Weather)  │  Placeholder (Energy)  │  Placeholder (Media)          │
-├─────────────────────────────────────────────────────────────────────────────────┤
-│ System ● Bus ● Tasks ● Flights ······ Checked 12:04:32                          │
-└─────────────────────────────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────┬───────────────────────────────────────────────┐
+│ Home Sweet Home · Saturday, 28 September 2026 │  Clock                                        │
+├────────────────────┬──────────────────────────┴───────────────────────────────────────────────┤
+│ Closest aircraft   │  Flight map                                                          │
+│ Flights list (5)   │  (FlyOverMapCard)                                                     │
+├────────────────────┼───────────────────────────────────────────────────────────────────────┤
+│                    │  Tasks (auto-rotating deck)                                           │
+│                    │  ───────────────────────────────────────────────────────────────      │
+│                    │  Bus (StopCard × N)                                                   │
+├────────────────────┴───────────────────────────────────────────────────────────────────────┤
+│ Placeholder (Weather)  │  Placeholder (Energy)  │  Placeholder (Media)                      │
+├───────────────────────────────────────────────────────────────────────────────────────────┤
+│ System ● Bus ● Tasks ● Flights ······ Checked 12:04:32                                     │
+└───────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ## What's on screen
 
-| Block        | Widget                                  | Module package                               |
-| ------------ | --------------------------------------- | -------------------------------------------- |
-| Clock        | `ClockCard`                             | `@sousa99/current-time-components`           |
-| Bus stops    | `StopCard` × N (configured stops)       | `@sousa99/bus-catcher-components`            |
-| Flights      | `FlyOverWidget` + `ClosestAircraftCard` | `@sousa99/fly-over-tracker-components`       |
-| Tasks        | `TaskDeckWrapper`                       | `@sousa99/procrastinator-tracker-components` |
-| Status strip | health probes per module                | — (dashboard)                                |
-| Placeholders | "coming soon" tiles for future modules  | — (dashboard)                                |
+| Block             | Widget                                 | Module package                               |
+| ----------------- | -------------------------------------- | -------------------------------------------- |
+| Clock             | `ClockCard`                            | `@sousa99/current-time-components`           |
+| Flights — closest | `ClosestAircraftCard`                  | `@sousa99/fly-over-tracker-components`       |
+| Flights — list    | `FlyOverListCard` (`maxResults`)       | `@sousa99/fly-over-tracker-components`       |
+| Flights — map     | `FlyOverMapCard`                       | `@sousa99/fly-over-tracker-components`       |
+| Tasks             | `TaskDeckWrapper`                      | `@sousa99/procrastinator-tracker-components` |
+| Bus stops         | `StopCard` × N (configured stops)      | `@sousa99/bus-catcher-components`            |
+| Status strip      | health probes per module               | — (dashboard)                                |
+| Placeholders      | "coming soon" tiles for future modules | — (dashboard)                                |
 
 The grid is **rem-based** (root font-size scales with viewport width) and scroll-free, so it
 renders well from 720p up to 4K.
@@ -65,19 +69,12 @@ All block behavior lives in [`public/config.json`](public/config.json). See
 {
   "clock": { "defaultFormat": "24h", "switchable": false },
   "bus": {
-    "stops": [
-      {
-        "id": "1001",
-        "name": "Casal do Canas",
-        "lines": ["3715"],
-        "limit": 5,
-        "refetchIntervalMs": 15000,
-      },
-    ],
+    "stops": [{ "id": "376204", "name": "Rua Ivone Silva Frente 10", "lines": ["2711:0"] }],
   },
   "flights": {
-    "location": { "lat": 38.7223, "lng": -9.1393, "radiusKm": 100 },
-    "autoRefresh": 30,
+    "location": { "lat": 38.804428, "lng": -9.123621, "radiusKm": 4 },
+    "autoRefresh": 20,
+    "maxResults": 5,
   },
   "tasks": {
     "filters": { "status": "to-start" },
@@ -88,6 +85,20 @@ All block behavior lives in [`public/config.json`](public/config.json). See
   "placeholders": [{ "title": "Weather", "description": "…" }],
 }
 ```
+
+## MCP servers
+
+`docker compose` also runs each module's MCP server (streamable HTTP at `/mcp`), and
+[`opencode.json`](opencode.json) connects opencode to them:
+
+| Module                 | MCP URL                     |
+| ---------------------- | --------------------------- |
+| bus-catcher            | `http://localhost:3200/mcp` |
+| fly-over-tracker       | `http://localhost:3201/mcp` |
+| procrastinator-tracker | `http://localhost:3202/mcp` |
+
+Ports are overridable via `HSH_*_MCP_PORT`. The procrastinator MCP is a **single-session** server
+(one client per container lifetime) — restart its container to reconnect.
 
 ## How the widgets reach the backends
 

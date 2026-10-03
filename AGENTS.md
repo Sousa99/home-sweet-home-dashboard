@@ -67,7 +67,11 @@ Delegate by task; the main assistant must not perform git/GitHub operations.
 - `src/config.ts` — typed runtime config, defaults, deep merge (`loadConfig`).
 - `src/lib/status.ts` — module health probing (bus /health, tasks reachability, fly feed probe).
 - `src/layout/DashboardGrid.tsx` — the TV grid and the per-module `BASE_URLS`.
-- `src/blocks/` — `ClockBlock`, `BusBlock`, `FlightsBlock` (+ `ClosestAircraftCard`),
-  `TasksBlock`, `StatusBlock`, `PlaceholderBlock`.
+- `src/blocks/` — `ClockBlock`, `ClosestFlightBlock` + `FlightListBlock` + `FlightMapBlock`
+  (the three fly-over widgets split across the grid), `TasksBlock`, `BusBlock`, `StatusBlock`,
+  `PlaceholderBlock`.
+- `src/layout/DashboardGrid.tsx` — the TV grid (three equal columns: flights closest+list,
+  flight map, tasks+bus), the per-module `BASE_URLS`, and the MCP host ports note.
+- `opencode.json` — remote MCP entries for the three module servers (`localhost:3200/3201/3202`).
 - `deploy/nginx.conf` — SPA serving + `/api/<module>` reverse proxy (compose service names).
 - `tests/` — Vitest suite (config merge, status logic, grid shell smoke test).

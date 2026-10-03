@@ -1,9 +1,12 @@
 {
   "clock": { "defaultFormat": "24h", "switchable": false },
-  "bus": { "stops": [] },
+  "bus": {
+    "stops": [{ "id": "376204", "name": "Rua Ivone Silva Frente 10", "lines": ["2711:0"] }]
+  },
   "flights": {
-    "location": { "lat": 38.7223, "lng": -9.1393, "radiusKm": 100 },
-    "autoRefresh": 30
+    "location": { "lat": 38.804428, "lng": -9.123621, "radiusKm": 4 },
+    "autoRefresh": 20,
+    "maxResults": 5
   },
   "tasks": {
     "filters": { "status": "to-start" },

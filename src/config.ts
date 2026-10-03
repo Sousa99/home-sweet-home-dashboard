@@ -23,6 +23,7 @@ export interface BusConfig {
 export interface FlightsConfig {
   location: { lat: number; lng: number; radiusKm: number };
   autoRefresh: RefreshRate;
+  maxResults: number;
 }
 
 export interface TasksConfig {
@@ -52,7 +53,11 @@ export interface DashboardConfig {
 export const DEFAULT_CONFIG: DashboardConfig = {
   clock: { defaultFormat: '24h', switchable: false },
   bus: { stops: [] },
-  flights: { location: { lat: 38.7223, lng: -9.1393, radiusKm: 100 }, autoRefresh: 30 },
+  flights: {
+    location: { lat: 38.7223, lng: -9.1393, radiusKm: 100 },
+    autoRefresh: 30,
+    maxResults: 5,
+  },
   tasks: { filters: {}, refreshRateMs: 30000, autoRotateMs: 4000 },
   status: { intervalMs: 30000 },
   placeholders: [

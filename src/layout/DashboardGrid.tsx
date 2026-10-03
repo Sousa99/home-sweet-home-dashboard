@@ -1,7 +1,9 @@
 import type { DashboardConfig } from '../config';
 import { BusBlock } from '../blocks/BusBlock';
+import { ClosestFlightBlock } from '../blocks/ClosestFlightBlock';
 import { ClockBlock } from '../blocks/ClockBlock';
-import { FlightsBlock } from '../blocks/FlightsBlock';
+import { FlightListBlock } from '../blocks/FlightListBlock';
+import { FlightMapBlock } from '../blocks/FlightMapBlock';
 import { PlaceholderBlock } from '../blocks/PlaceholderBlock';
 import { StatusBlock } from '../blocks/StatusBlock';
 import { TasksBlock } from '../blocks/TasksBlock';
@@ -31,14 +33,22 @@ export function DashboardGrid({ config }: { config: DashboardConfig }) {
       </header>
 
       <main className="col-span-12 grid min-h-0 grid-cols-12 gap-4">
-        <section className="col-span-3 min-h-0">
-          <BusBlock config={config.bus} baseUrl={BASE_URLS.bus} />
+        <section className="col-span-4 flex min-h-0 flex-col gap-3">
+          <ClosestFlightBlock config={config.flights} baseUrl={BASE_URLS.fly} />
+          <div className="min-h-0 flex-1">
+            <FlightListBlock config={config.flights} baseUrl={BASE_URLS.fly} />
+          </div>
         </section>
-        <section className="col-span-6 min-h-0">
-          <FlightsBlock config={config.flights} baseUrl={BASE_URLS.fly} />
+
+        <section className="col-span-4 min-h-0">
+          <FlightMapBlock config={config.flights} baseUrl={BASE_URLS.fly} />
         </section>
-        <section className="col-span-3 min-h-0">
+
+        <section className="col-span-4 flex min-h-0 flex-col gap-4">
           <TasksBlock config={config.tasks} baseUrl={BASE_URLS.tasks} />
+          <div className="min-h-0 flex-1">
+            <BusBlock config={config.bus} baseUrl={BASE_URLS.bus} />
+          </div>
         </section>
       </main>
 
