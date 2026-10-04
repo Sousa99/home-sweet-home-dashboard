@@ -1,6 +1,6 @@
 # Feature Specification: Add Weather-Psychic Module & Update All Modules
 
-**Feature Branch**: `001-add-weather-psychic`
+**Feature Branch**: `feature/001-add-weather-psychic`
 
 **Created**: 2026-10-04
 
