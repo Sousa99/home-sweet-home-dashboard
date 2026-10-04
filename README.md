@@ -11,29 +11,27 @@ module source.
 ├────────────────────┬──────────────────────────┴───────────────────────────────────────────────┤
 │ Flights            │  Flights                                                                │
 │ Closest + list (5) │  Flight map (FlyOverMapCard)                                            │
-├────────────────────┼───────────────────────────────────────────────────────────────────────┤
-│                    │  Tasks (auto-rotating deck)                                           │
-│                    │  ───────────────────────────────────────────────────────────────      │
-│                    │  Bus (StopCard × N)                                                   │
+│ ────────────────── │  ──────────────────────────────────────────────────────────────         │
+│ Weather            │                                                                          │
+│ current + hourly   │  Tasks (auto-rotating deck)                                             │
+│ ────────────────── │  ───────────────────────────────────────────────────────────────      │
+│                    │  Bus (StopCard × N)                                                     │
 ├────────────────────┴───────────────────────────────────────────────────────────────────────┤
-│ Weather (current + hourly · weekly) │  Placeholder (Energy)  │  Placeholder (Media)                  │
-├───────────────────────────────────────────────────────────────────────────────────────────┤
 │ System ● Bus ● Tasks ● Flights ······ Checked 12:04:32                                     │
 └───────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ## What's on screen
 
-| Block                    | Widget                                     | Module package                               |
-| ------------------------ | ------------------------------------------ | -------------------------------------------- |
-| Clock                    | `ClockCard`                                | `@sousa99/current-time-components`           |
-| Flights — closest + list | `FlyOverClosestPanel` (`maxResults`)       | `@sousa99/fly-over-tracker-components`       |
-| Flights — map            | `FlyOverMapCard`                           | `@sousa99/fly-over-tracker-components`       |
-| Tasks                    | `TaskDeckWrapper`                          | `@sousa99/procrastinator-tracker-components` |
-| Bus stops                | `StopCard` × N (configured stops)          | `@sousa99/bus-catcher-components`            |
-| Weather                  | `CurrentWeatherCard` + `DailyForecastCard` | `@sousa99/weather-psychic-components`        |
-| Status strip             | health probes per module                   | — (dashboard)                                |
-| Placeholders             | "coming soon" tiles for future modules     | — (dashboard)                                |
+| Block                    | Widget                                  | Module package                               |
+| ------------------------ | --------------------------------------- | -------------------------------------------- |
+| Clock                    | `ClockCard`                             | `@sousa99/current-time-components`           |
+| Flights — closest + list | `FlyOverClosestPanel` (`maxResults`)    | `@sousa99/fly-over-tracker-components`       |
+| Flights — map            | `FlyOverMapCard`                        | `@sousa99/fly-over-tracker-components`       |
+| Tasks                    | `TaskDeckWrapper`                       | `@sousa99/procrastinator-tracker-components` |
+| Bus stops                | `StopCard` × N (configured stops)       | `@sousa99/bus-catcher-components`            |
+| Weather                  | `CurrentWeatherCard` (current + hourly) | `@sousa99/weather-psychic-components`        |
+| Status strip             | health probes per module                | — (dashboard)                                |
 
 The grid is **rem-based** (root font-size scales with viewport width) and scroll-free, so it
 renders well from 720p up to 4K.
@@ -92,9 +90,8 @@ All block behavior lives in [`public/config.json`](public/config.json). See
       "country": "Portugal",
     },
     "refetchIntervalMs": 900000,
-    "maxDays": 5,
   },
-  "placeholders": [{ "title": "Energy", "description": "…" }],
+  "placeholders": [],
 }
 ```
 

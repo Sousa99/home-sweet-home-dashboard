@@ -39,20 +39,19 @@ describe('loadConfig', () => {
     expect(config.clock.switchable).toBe(false);
     expect(config.bus.stops).toEqual([{ id: '1001', name: 'Casal do Canas' }]);
     expect(config.tasks.refreshRateMs).toBe(30000);
-    expect(config.placeholders).toHaveLength(2);
+    expect(config.placeholders).toHaveLength(0);
     vi.unstubAllGlobals();
   });
 });
 
 describe('weather config', () => {
-  it('provides a Lisbon-area default with a 15-minute refresh and 5-day forecast', () => {
+  it('provides a Lisbon-area default with a 15-minute refresh', () => {
     expect(DEFAULT_CONFIG.weather.location).toMatchObject({
       name: 'Camarate',
       timezone: 'Europe/Lisbon',
       country: 'Portugal',
     });
     expect(DEFAULT_CONFIG.weather.refetchIntervalMs).toBe(900000);
-    expect(DEFAULT_CONFIG.weather.maxDays).toBe(5);
   });
 
   it('deep-merges partial weather overrides into the defaults', async () => {
@@ -60,12 +59,11 @@ describe('weather config', () => {
       'fetch',
       vi.fn().mockResolvedValue({
         ok: true,
-        json: async () => ({ weather: { maxDays: 7 } }),
+        json: async () => ({ weather: { refetchIntervalMs: 600000 } }),
       }),
     );
     const config = await loadConfig();
-    expect(config.weather.maxDays).toBe(7);
-    expect(config.weather.refetchIntervalMs).toBe(900000);
+    expect(config.weather.refetchIntervalMs).toBe(600000);
     expect(config.weather.location.name).toBe('Camarate');
     vi.unstubAllGlobals();
   });

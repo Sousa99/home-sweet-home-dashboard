@@ -23,7 +23,6 @@ vi.mock('@sousa99/procrastinator-tracker-components', () => ({
 
 vi.mock('@sousa99/weather-psychic-components', () => ({
   CurrentWeatherCard: () => <div data-testid="current-weather" />,
-  DailyForecastCard: () => <div data-testid="daily-forecast" />,
 }));
 
 vi.mock('../src/lib/status', () => ({
@@ -50,8 +49,7 @@ describe('DashboardGrid', () => {
     expect(screen.getByTestId('fly-over-map')).toBeInTheDocument();
     expect(screen.getByTestId('task-deck')).toBeInTheDocument();
     expect(screen.getByTestId('current-weather')).toBeInTheDocument();
-    expect(screen.getByTestId('daily-forecast')).toBeInTheDocument();
-    expect(screen.getAllByText('Coming soon')).toHaveLength(2);
+    expect(screen.queryAllByText('Coming soon')).toHaveLength(0);
   });
 
   it('shows the weather module in the status footer', async () => {

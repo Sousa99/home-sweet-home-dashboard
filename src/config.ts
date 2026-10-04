@@ -40,12 +40,10 @@ export interface StatusConfig {
 }
 
 export interface WeatherConfig {
-  /** The place whose current + hourly and weekly weather is shown. */
+  /** The place whose current + hourly weather is shown. */
   location: WeatherLocation;
   /** Auto-refresh cadence in ms; `0` disables. */
   refetchIntervalMs: number;
-  /** Maximum number of days shown in the weekly forecast. */
-  maxDays: number;
 }
 
 export interface PlaceholderConfig {
@@ -83,13 +81,9 @@ export const DEFAULT_CONFIG: DashboardConfig = {
       country: 'Portugal',
     },
     refetchIntervalMs: 900000,
-    maxDays: 5,
   },
   status: { intervalMs: 30000 },
-  placeholders: [
-    { title: 'Energy', description: 'Household power and consumption.' },
-    { title: 'Media', description: 'Now playing and upcoming releases.' },
-  ],
+  placeholders: [],
 };
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {

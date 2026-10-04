@@ -1,4 +1,4 @@
-import { CurrentWeatherCard, DailyForecastCard } from '@sousa99/weather-psychic-components';
+import { CurrentWeatherCard } from '@sousa99/weather-psychic-components';
 import { CloudSun } from 'lucide-react';
 import type { WeatherConfig } from '../config';
 
@@ -13,13 +13,6 @@ export function WeatherBlock({ config, baseUrl }: { config: WeatherConfig; baseU
         location={config.location}
         baseUrl={baseUrl}
         refetchIntervalMs={config.refetchIntervalMs}
-        className="min-h-0 flex-1"
-      />
-      <DailyForecastCard
-        location={config.location}
-        baseUrl={baseUrl}
-        refetchIntervalMs={config.refetchIntervalMs}
-        maxDays={config.maxDays}
         className="min-h-0 flex-1"
       />
     </section>
