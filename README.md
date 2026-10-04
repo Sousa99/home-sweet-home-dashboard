@@ -16,7 +16,7 @@ module source.
 │                    │  ───────────────────────────────────────────────────────────────      │
 │                    │  Bus (StopCard × N)                                                   │
 ├────────────────────┴───────────────────────────────────────────────────────────────────────┤
-│ Placeholder (Weather)  │  Placeholder (Energy)  │  Placeholder (Media)                      │
+│ Weather (current + hourly · weekly) │  Placeholder (Energy)  │  Placeholder (Media)                  │
 ├───────────────────────────────────────────────────────────────────────────────────────────┤
 │ System ● Bus ● Tasks ● Flights ······ Checked 12:04:32                                     │
 └───────────────────────────────────────────────────────────────────────────────────────────┘
@@ -24,15 +24,16 @@ module source.
 
 ## What's on screen
 
-| Block                    | Widget                                 | Module package                               |
-| ------------------------ | -------------------------------------- | -------------------------------------------- |
-| Clock                    | `ClockCard`                            | `@sousa99/current-time-components`           |
-| Flights — closest + list | `FlyOverClosestPanel` (`maxResults`)   | `@sousa99/fly-over-tracker-components`       |
-| Flights — map            | `FlyOverMapCard`                       | `@sousa99/fly-over-tracker-components`       |
-| Tasks                    | `TaskDeckWrapper`                      | `@sousa99/procrastinator-tracker-components` |
-| Bus stops                | `StopCard` × N (configured stops)      | `@sousa99/bus-catcher-components`            |
-| Status strip             | health probes per module               | — (dashboard)                                |
-| Placeholders             | "coming soon" tiles for future modules | — (dashboard)                                |
+| Block                    | Widget                                     | Module package                               |
+| ------------------------ | ------------------------------------------ | -------------------------------------------- |
+| Clock                    | `ClockCard`                                | `@sousa99/current-time-components`           |
+| Flights — closest + list | `FlyOverClosestPanel` (`maxResults`)       | `@sousa99/fly-over-tracker-components`       |
+| Flights — map            | `FlyOverMapCard`                           | `@sousa99/fly-over-tracker-components`       |
+| Tasks                    | `TaskDeckWrapper`                          | `@sousa99/procrastinator-tracker-components` |
+| Bus stops                | `StopCard` × N (configured stops)          | `@sousa99/bus-catcher-components`            |
+| Weather                  | `CurrentWeatherCard` + `DailyForecastCard` | `@sousa99/weather-psychic-components`        |
+| Status strip             | health probes per module                   | — (dashboard)                                |
+| Placeholders             | "coming soon" tiles for future modules     | — (dashboard)                                |
 
 The grid is **rem-based** (root font-size scales with viewport width) and scroll-free, so it
 renders well from 720p up to 4K.
@@ -52,12 +53,12 @@ arm64 emulation note.
 ### Development
 
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d   # backends on :3100/:3101/:3102
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d   # backends on :3100/:3101/:3102/:3103
 pnpm dev                                                            # Vite on :5173
 ```
 
-The Vite dev proxy mirrors `deploy/nginx.conf`: `/api/bus`, `/api/tasks` and `/api/fly` are
-forwarded to the corresponding backend with the module prefix stripped.
+The Vite dev proxy mirrors `deploy/nginx.conf`: `/api/bus`, `/api/tasks`, `/api/fly` and
+`/api/weather` are forwarded to the corresponding backend with the module prefix stripped.
 
 ## Configuration
 
@@ -81,7 +82,19 @@ All block behavior lives in [`public/config.json`](public/config.json). See
     "autoRotateMs": 4000,
   },
   "status": { "intervalMs": 30000 },
-  "placeholders": [{ "title": "Weather", "description": "…" }],
+  "weather": {
+    "location": {
+      "id": 1,
+      "name": "Lisbon",
+      "latitude": 38.804428,
+      "longitude": -9.123621,
+      "timezone": "Europe/Lisbon",
+      "country": "Portugal",
+    },
+    "refetchIntervalMs": 900000,
+    "maxDays": 5,
+  },
+  "placeholders": [{ "title": "Energy", "description": "…" }],
 }
 ```
 
@@ -95,17 +108,18 @@ All block behavior lives in [`public/config.json`](public/config.json). See
 | bus-catcher            | `http://localhost:3200/mcp` |
 | fly-over-tracker       | `http://localhost:3201/mcp` |
 | procrastinator-tracker | `http://localhost:3202/mcp` |
+| weather-psychic        | `http://localhost:3203/mcp` |
 
 Ports are overridable via `HSH_*_MCP_PORT`. The procrastinator MCP is a **single-session** server
 (one client per container lifetime) — restart its container to reconnect.
 
 ## How the widgets reach the backends
 
-Each widget is given a same-origin `baseUrl` (`/api/bus`, `/api/tasks`, `/api/fly`). The widget
-clients append their module-relative paths (`/api/stops/…`, `/api/tasks`, `/api/fly-overs`), so a
-request lands on `/api/<module>/api/…`. `deploy/nginx.conf` (and the Vite dev proxy) strips the
-`/api/<module>` prefix and forwards the remainder to the module backend on the compose network —
-no CORS, no host-port exposure needed.
+Each widget is given a same-origin `baseUrl` (`/api/bus`, `/api/tasks`, `/api/fly`,
+`/api/weather`). The widget clients append their module-relative paths (`/api/stops/…`,
+`/api/tasks`, `/api/fly-overs`, `/api/weather`), so a request lands on `/api/<module>/api/…`.
+`deploy/nginx.conf` (and the Vite dev proxy) strips the `/api/<module>` prefix and forwards the
+remainder to the module backend on the compose network — no CORS, no host-port exposure needed.
 
 ## Module versions
 

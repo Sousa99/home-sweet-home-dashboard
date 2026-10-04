@@ -14,9 +14,20 @@
     "refreshRateMs": 30000,
     "autoRotateMs": 4000
   },
+  "weather": {
+    "location": {
+      "id": 1,
+      "name": "Lisbon",
+      "latitude": 38.804428,
+      "longitude": -9.123621,
+      "timezone": "Europe/Lisbon",
+      "country": "Portugal"
+    },
+    "refetchIntervalMs": 900000,
+    "maxDays": 5
+  },
   "status": { "intervalMs": 60000 },
   "placeholders": [
-    { "title": "Weather", "description": "Outdoor conditions at a glance." },
     { "title": "Energy", "description": "Household power and consumption." },
     { "title": "Media", "description": "Now playing and upcoming releases." }
   ]

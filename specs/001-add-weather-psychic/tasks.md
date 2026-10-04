@@ -31,8 +31,8 @@ implementation, then a green run.
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Add `@sousa99/weather-psychic-components` `^0.1.0` to `dependencies` in package.json, then run `pnpm install` so the new module package is resolved from GitHub Packages
-- [ ] T002 Import `@sousa99/weather-psychic-components/styles.css` in src/main.tsx (place it after the `current-time-components` styles import, before `./index.css`)
+- [x] T001 Add `@sousa99/weather-psychic-components` `^0.1.0` to `dependencies` in package.json, then run `pnpm install` so the new module package is resolved from GitHub Packages
+- [x] T002 Import `@sousa99/weather-psychic-components/styles.css` in src/main.tsx (place it after the `current-time-components` styles import, before `./index.css`)
 
 ---
 
@@ -42,15 +42,15 @@ implementation, then a green run.
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 Add `WeatherLocation` type (`id`, `name`, `latitude`, `longitude`, `timezone`, optional `country`/`admin1`) and `WeatherConfig` interface (`location`, `refetchIntervalMs`, `maxDays`) with a Lisbon-area `DEFAULT_CONFIG.weather` in src/config.ts
-- [ ] T004 Add a `weather` block (`location`, `refetchIntervalMs`, `maxDays`) to public/config.json and remove the `"Weather"` placeholder entry from the `placeholders` array
-- [ ] T005 Add `weather: '/api/weather'` to the `BASE_URLS` map in src/layout/DashboardGrid.tsx
-- [ ] T006 Add `location /api/weather/` reverse proxy forwarding (with `/api/weather` prefix rewrite) to `weather-psychic-backend:3000` in deploy/nginx.conf
-- [ ] T007 Add `/api/weather` dev proxy (rewrite strips the prefix) targeting `http://localhost:3103` in vite.config.ts
-- [ ] T008 Add `weather-psychic-backend` (image `ghcr.io/sousa99/weather-psychic-backend:${HSH_WEATHER_PSYCHIC_BACKEND_VERSION:-0.1.0}`, `--http`, no volume, healthcheck on `/api/health`) and `weather-psychic-mcp` (image same, `--mcp`, host port `3203:3001`) services to docker-compose.yml, and add `weather-psychic-backend: condition: service_healthy` to the dashboard `depends_on`
-- [ ] T009 Add `weather-psychic-backend` ports `3103:3000` to docker-compose.dev.yml
-- [ ] T010 Add `HSH_WEATHER_PSYCHIC_BACKEND_VERSION=0.1.0` and `HSH_WEATHER_PSYCHIC_MCP_PORT=3203` to .env.example
-- [ ] T011 Add a `weather-psychic` remote MCP entry (`{ "type": "remote", "url": "http://localhost:3203/mcp", "enabled": true }`) to opencode.json
+- [x] T003 Add `WeatherLocation` type (`id`, `name`, `latitude`, `longitude`, `timezone`, optional `country`/`admin1`) and `WeatherConfig` interface (`location`, `refetchIntervalMs`, `maxDays`) with a Lisbon-area `DEFAULT_CONFIG.weather` in src/config.ts
+- [x] T004 Add a `weather` block (`location`, `refetchIntervalMs`, `maxDays`) to public/config.json and remove the `"Weather"` placeholder entry from the `placeholders` array
+- [x] T005 Add `weather: '/api/weather'` to the `BASE_URLS` map in src/layout/DashboardGrid.tsx
+- [x] T006 Add `location /api/weather/` reverse proxy forwarding (with `/api/weather` prefix rewrite) to `weather-psychic-backend:3000` in deploy/nginx.conf
+- [x] T007 Add `/api/weather` dev proxy (rewrite strips the prefix) targeting `http://localhost:3103` in vite.config.ts
+- [x] T008 Add `weather-psychic-backend` (image `ghcr.io/sousa99/weather-psychic-backend:${HSH_WEATHER_PSYCHIC_BACKEND_VERSION:-0.1.0}`, `--http`, no volume, healthcheck on `/api/health`) and `weather-psychic-mcp` (image same, `--mcp`, host port `3203:3001`) services to docker-compose.yml, and add `weather-psychic-backend: condition: service_healthy` to the dashboard `depends_on`
+- [x] T009 Add `weather-psychic-backend` ports `3103:3000` to docker-compose.dev.yml
+- [x] T010 Add `HSH_WEATHER_PSYCHIC_BACKEND_VERSION=0.1.0` and `HSH_WEATHER_PSYCHIC_MCP_PORT=3203` to .env.example
+- [x] T011 Add a `weather-psychic` remote MCP entry (`{ "type": "remote", "url": "http://localhost:3203/mcp", "enabled": true }`) to opencode.json
 
 **Checkpoint**: Foundation ready — the `/api/weather` proxy, compose services, config types, and
 `public/config.json` weather block exist; user story implementation can now begin.
@@ -69,13 +69,13 @@ current-conditions widget appears and fetches real values through `/api/weather`
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T012 [P] [US1] Add weather config tests in tests/config.test.ts: `DEFAULT_CONFIG.weather` deep-merges overrides, keeps defaults for missing fields, and falls back to defaults on invalid input
-- [ ] T013 [P] [US1] Update tests/dashboard.test.tsx: mock `@sousa99/weather-psychic-components` (`CurrentWeatherCard` + `DailyForecastCard` render testids), assert the current-weather card renders in the weather section, and change the placeholder assertion from 3 to 2 ("Coming soon")
+- [x] T012 [P] [US1] Add weather config tests in tests/config.test.ts: `DEFAULT_CONFIG.weather` deep-merges overrides, keeps defaults for missing fields, and falls back to defaults on invalid input
+- [x] T013 [P] [US1] Update tests/dashboard.test.tsx: mock `@sousa99/weather-psychic-components` (`CurrentWeatherCard` + `DailyForecastCard` render testids), assert the current-weather card renders in the weather section, and change the placeholder assertion from 3 to 2 ("Coming soon")
 
 ### Implementation for User Story 1
 
-- [ ] T014 [US1] Create WeatherBlock in src/blocks/WeatherBlock.tsx hosting `CurrentWeatherCard` with `location={config.weather.location}`, `baseUrl={BASE_URLS.weather}`, `refetchIntervalMs={config.weather.refetchIntervalMs}`, `className` for the grid cell
-- [ ] T015 [US1] Replace the "Weather" placeholder region with a weather section rendering `WeatherBlock` (icon + "Weather" heading) in src/layout/DashboardGrid.tsx
+- [x] T014 [US1] Create WeatherBlock in src/blocks/WeatherBlock.tsx hosting `CurrentWeatherCard` with `location={config.weather.location}`, `baseUrl={BASE_URLS.weather}`, `refetchIntervalMs={config.weather.refetchIntervalMs}`, `className` for the grid cell
+- [x] T015 [US1] Replace the "Weather" placeholder region with a weather section rendering `WeatherBlock` (icon + "Weather" heading) in src/layout/DashboardGrid.tsx
 
 **Checkpoint**: User Story 1 is fully functional — current + hourly weather renders with live data.
 
@@ -93,11 +93,11 @@ location alongside the current-conditions card.
 
 > **NOTE: Write this test FIRST, ensure it FAILS before implementation**
 
-- [ ] T016 [P] [US2] Extend tests/dashboard.test.tsx to assert the `DailyForecastCard` testid renders in the weather section
+- [x] T016 [P] [US2] Extend tests/dashboard.test.tsx to assert the `DailyForecastCard` testid renders in the weather section
 
 ### Implementation for User Story 2
 
-- [ ] T017 [US2] Add `DailyForecastCard` to src/blocks/WeatherBlock.tsx with `location={config.weather.location}`, `baseUrl={BASE_URLS.weather}`, `maxDays={config.weather.maxDays}`, `className`
+- [x] T017 [US2] Add `DailyForecastCard` to src/blocks/WeatherBlock.tsx with `location={config.weather.location}`, `baseUrl={BASE_URLS.weather}`, `maxDays={config.weather.maxDays}`, `className`
 
 **Checkpoint**: User Stories 1 AND 2 both work — the weather section shows current + hourly and weekly forecast.
 
@@ -112,9 +112,9 @@ backend image tags; no existing block regresses.
 the latest published versions, and the existing dashboard grid test still passes (all existing
 blocks render).
 
-- [ ] T018 [P] [US3] Bump component pins in package.json: `@sousa99/bus-catcher-components` to `^0.1.3`, `@sousa99/fly-over-tracker-components` to `^0.4.3`, `@sousa99/procrastinator-tracker-components` to `^0.2.0`, then run `pnpm install`
-- [ ] T019 [US3] Bump backend image tags in .env.example AND the compose defaults in docker-compose.yml: `HSH_BUS_CATCHER_BACKEND_VERSION=0.1.3`, `HSH_FLY_OVER_TRACKER_BACKEND_VERSION=0.4.3`, `HSH_PROCRASTINATOR_TRACKER_BACKEND_VERSION=0.2.0`
-- [ ] T020 [P] [US3] Update docs/versions.md: bump the bus/fly/tasks pins in the "Current pins" table and add a weather-psychic row (`@sousa99/weather-psychic-components` `^0.1.0` / `weather-psychic-backend` `0.1.0`)
+- [x] T018 [P] [US3] Bump component pins in package.json: `@sousa99/bus-catcher-components` to `^0.1.3`, `@sousa99/fly-over-tracker-components` to `^0.4.3`, `@sousa99/procrastinator-tracker-components` to `^0.2.0`, then run `pnpm install`
+- [x] T019 [US3] Bump backend image tags in .env.example AND the compose defaults in docker-compose.yml: `HSH_BUS_CATCHER_BACKEND_VERSION=0.1.3`, `HSH_FLY_OVER_TRACKER_BACKEND_VERSION=0.4.3`, `HSH_PROCRASTINATOR_TRACKER_BACKEND_VERSION=0.2.0`
+- [x] T020 [P] [US3] Update docs/versions.md: bump the bus/fly/tasks pins in the "Current pins" table and add a weather-psychic row (`@sousa99/weather-psychic-components` `^0.1.0` / `weather-psychic-backend` `0.1.0`)
 
 **Checkpoint**: All modules pinned to latest published versions; existing grid test still green.
 
@@ -131,12 +131,12 @@ while the rest of the dashboard stays functional.
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T021 [P] [US4] Add weather probe tests in tests/status.test.ts: `checkModule('weather')` up on 2xx-4xx and down on 5xx/timeout, probes `/api/weather/api/health`, and `checkAllModules` returns `['bus', 'tasks', 'fly', 'weather']`
-- [ ] T022 [P] [US4] Update tests/dashboard.test.tsx status mock to include a weather entry and assert the status footer renders "Weather"
+- [x] T021 [P] [US4] Add weather probe tests in tests/status.test.ts: `checkModule('weather')` up on 2xx-4xx and down on 5xx/timeout, probes `/api/weather/api/health`, and `checkAllModules` returns `['bus', 'tasks', 'fly', 'weather']`
+- [x] T022 [P] [US4] Update tests/dashboard.test.tsx status mock to include a weather entry and assert the status footer renders "Weather"
 
 ### Implementation for User Story 4
 
-- [ ] T023 [US4] Add `'weather'` to `ModuleKey`, `MODULE_KEYS`, `LABELS` ("Weather"), and `PROBE_PATHS` (`/api/weather/api/health`) in src/lib/status.ts
+- [x] T023 [US4] Add `'weather'` to `ModuleKey`, `MODULE_KEYS`, `LABELS` ("Weather"), and `PROBE_PATHS` (`/api/weather/api/health`) in src/lib/status.ts
 
 **Checkpoint**: All four user stories independently functional; status panel reflects weather health.
 
@@ -146,10 +146,10 @@ while the rest of the dashboard stays functional.
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T024 [P] Update README.md: add the Weather row to the module table, add `/api/weather` to the proxy list, and add `weather-psychic` → `http://localhost:3203/mcp` to the MCP table
-- [ ] T025 [P] Update setup.md: note the weather backend is stateless (no volume), add the weather dev port to the `:3100/:3101/:3102` line (`:3103`), and mention `HSH_WEATHER_PSYCHIC_*` env vars
-- [ ] T026 Run the quickstart.md end-to-end validation: `docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build`, verify `:3103/api/health`, MCP at `:3203`, prod nginx proxy at `:3304/api/weather/api/health`, then the resilience check (stop `weather-psychic-backend` → status shows Weather down, dashboard alive)
-- [ ] T027 Run the final quality gates: `pnpm lint`, `pnpm format`, `pnpm typecheck`, `pnpm test` — all must pass
+- [x] T024 [P] Update README.md: add the Weather row to the module table, add `/api/weather` to the proxy list, and add `weather-psychic` → `http://localhost:3203/mcp` to the MCP table
+- [x] T025 [P] Update setup.md: note the weather backend is stateless (no volume), add the weather dev port to the `:3100/:3101/:3102` line (`:3103`), and mention `HSH_WEATHER_PSYCHIC_*` env vars
+- [x] T026 Run the quickstart.md end-to-end validation: `docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build`, verify `:3103/api/health`, MCP at `:3203`, prod nginx proxy at `:3304/api/weather/api/health`, then the resilience check (stop `weather-psychic-backend` → status shows Weather down, dashboard alive)
+- [x] T027 Run the final quality gates: `pnpm lint`, `pnpm format`, `pnpm typecheck`, `pnpm test` — all must pass
 
 ---
 

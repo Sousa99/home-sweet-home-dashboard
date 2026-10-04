@@ -55,14 +55,14 @@ weather), plus the compose/MCP wiring for four backends.
 
 _GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
-| Gate | Status | Notes |
-| ---- | ------ | ----- |
-| I. Dashboard-First: consume published widgets/images only, no module source | PASS | Adds published package + published image only; no module code lands here |
-| II. Local-First & Private: in-home, functional while local backends reachable | PASS | Weather backend is local; offline `mock` feed keeps it testable without network |
-| III. Declared identity & uniform tooling; no config drift | PASS | Reuses `@sousa99/homesweethome-config` presets; no new tooling added |
-| IV. Test-First (NON-NEGOTIABLE): failing test → implementation → green | PASS | Tasks sequence tests before implementation; suite extended for weather config/status/grid |
-| V. Contract & integration tests; nginx ↔ vite proxy sync | PASS | Both proxies updated in the same slice; smoke test + grid test cover weather |
-| VI. Independent per-module version pins; `docs/versions.md` updated | PASS | Version bumps are per-module and documented |
+| Gate                                                                          | Status | Notes                                                                                     |
+| ----------------------------------------------------------------------------- | ------ | ----------------------------------------------------------------------------------------- |
+| I. Dashboard-First: consume published widgets/images only, no module source   | PASS   | Adds published package + published image only; no module code lands here                  |
+| II. Local-First & Private: in-home, functional while local backends reachable | PASS   | Weather backend is local; offline `mock` feed keeps it testable without network           |
+| III. Declared identity & uniform tooling; no config drift                     | PASS   | Reuses `@sousa99/homesweethome-config` presets; no new tooling added                      |
+| IV. Test-First (NON-NEGOTIABLE): failing test → implementation → green        | PASS   | Tasks sequence tests before implementation; suite extended for weather config/status/grid |
+| V. Contract & integration tests; nginx ↔ vite proxy sync                      | PASS   | Both proxies updated in the same slice; smoke test + grid test cover weather              |
+| VI. Independent per-module version pins; `docs/versions.md` updated           | PASS   | Version bumps are per-module and documented                                               |
 
 ## Project Structure
 

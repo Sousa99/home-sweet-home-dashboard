@@ -15,6 +15,11 @@
       "type": "remote",
       "url": "http://localhost:3202/mcp",
       "enabled": true
+    },
+    "weather-psychic": {
+      "type": "remote",
+      "url": "http://localhost:3203/mcp",
+      "enabled": true
     }
   }
 }

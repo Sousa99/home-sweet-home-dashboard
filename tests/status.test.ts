@@ -39,7 +39,7 @@ describe('checkAllModules', () => {
   it('checks every module', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ status: 200 }));
     const results = await checkAllModules();
-    expect(results.map((r) => r.key)).toEqual(['bus', 'tasks', 'fly']);
+    expect(results.map((r) => r.key)).toEqual(['bus', 'tasks', 'fly', 'weather']);
     expect(results.every((r) => r.up)).toBe(true);
   });
 
@@ -51,5 +51,35 @@ describe('checkAllModules', () => {
       '/api/fly/api/fly-overs?lat=38.8&lng=-9.1&radiusKm=20',
       expect.anything(),
     );
+  });
+});
+
+describe('weather status probe', () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('reports the weather module up on a 2xx-4xx health response', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ status: 200 }));
+    const result = await checkModule('weather');
+    expect(result.up).toBe(true);
+    expect(result.label).toBe('Weather');
+  });
+
+  it('reports the weather module down on a 5xx gateway response', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ status: 503 }));
+    const result = await checkModule('weather');
+    expect(result.up).toBe(false);
+  });
+
+  it('reports the weather module down when the request fails', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('refused')));
+    const result = await checkModule('weather');
+    expect(result.up).toBe(false);
+  });
+
+  it('probes the weather health endpoint through the base-url proxy', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ status: 200 });
+    vi.stubGlobal('fetch', fetchMock);
+    await checkModule('weather');
+    expect(fetchMock).toHaveBeenCalledWith('/api/weather/api/health', expect.anything());
   });
 });

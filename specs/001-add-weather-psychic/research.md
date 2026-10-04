@@ -7,13 +7,13 @@
 Latest published versions verified against the GitHub Packages registry and the
 `Sousa99/home-sweet-home-modules` release tags.
 
-| Module | Components pin (now) | Components pin (target) | Backend image (now) | Backend image (target) |
-| ------ | -------------------- | ----------------------- | ------------------- | ---------------------- |
-| bus-catcher | `^0.1.2` | `^0.1.3` | `0.1.2` | `0.1.3` |
-| fly-over-tracker | `^0.4.2` | `^0.4.3` | `0.3.0` | `0.4.3` |
-| procrastinator-tracker | `^0.1.2` | `^0.2.0` | `0.1.2` | `0.2.0` |
-| current-time | `^0.1.1` | `^0.1.1` (no change) | — | — |
-| weather-psychic | — | `^0.1.0` (NEW) | — | `0.1.0` (NEW) |
+| Module                 | Components pin (now) | Components pin (target) | Backend image (now) | Backend image (target) |
+| ---------------------- | -------------------- | ----------------------- | ------------------- | ---------------------- |
+| bus-catcher            | `^0.1.2`             | `^0.1.3`                | `0.1.2`             | `0.1.3`                |
+| fly-over-tracker       | `^0.4.2`             | `^0.4.3`                | `0.3.0`             | `0.4.3`                |
+| procrastinator-tracker | `^0.1.2`             | `^0.2.0`                | `0.1.2`             | `0.2.0`                |
+| current-time           | `^0.1.1`             | `^0.1.1` (no change)    | —                   | —                      |
+| weather-psychic        | —                    | `^0.1.0` (NEW)          | —                   | `0.1.0` (NEW)          |
 
 - **Decision**: Bump the four component packages in `package.json` and the three existing backend
   env tags in `.env.example`/`docker-compose.yml` defaults; add weather-psychic as the fifth.
@@ -68,16 +68,16 @@ Mounted under `/api` on the backend:
 
 Same pattern as the existing modules, weather on the next free ports:
 
-| Concern | Existing (bus/fly/tasks) | Weather (new) |
-| ------- | ------------------------ | ------------- |
-| SPA baseUrl | `/api/bus`, `/api/fly`, `/api/tasks` | `/api/weather` |
-| nginx upstream | `bus-catcher-backend:3000` etc. | `weather-psychic-backend:3000` |
-| Vite dev proxy target | `localhost:3100/3101/3102` | `localhost:3103` |
-| Compose HTTP service | `*-backend` (PORT 3000) | `weather-psychic-backend` |
-| Compose MCP service | `*-mcp` → host `3200/3201/3202` | `weather-psychic-mcp` → host `3203` |
-| Dashboard `depends_on` | 3 backends | + `weather-psychic-backend` (healthy) |
-| opencode.json MCP | 3 remote entries | + `weather-psychic` → `http://localhost:3203/mcp` |
-| Env vars | `HSH_*_BACKEND_VERSION`, `HSH_*_MCP_PORT` | `HSH_WEATHER_PSYCHIC_BACKEND_VERSION`, `HSH_WEATHER_PSYCHIC_MCP_PORT` |
+| Concern                | Existing (bus/fly/tasks)                  | Weather (new)                                                         |
+| ---------------------- | ----------------------------------------- | --------------------------------------------------------------------- |
+| SPA baseUrl            | `/api/bus`, `/api/fly`, `/api/tasks`      | `/api/weather`                                                        |
+| nginx upstream         | `bus-catcher-backend:3000` etc.           | `weather-psychic-backend:3000`                                        |
+| Vite dev proxy target  | `localhost:3100/3101/3102`                | `localhost:3103`                                                      |
+| Compose HTTP service   | `*-backend` (PORT 3000)                   | `weather-psychic-backend`                                             |
+| Compose MCP service    | `*-mcp` → host `3200/3201/3202`           | `weather-psychic-mcp` → host `3203`                                   |
+| Dashboard `depends_on` | 3 backends                                | + `weather-psychic-backend` (healthy)                                 |
+| opencode.json MCP      | 3 remote entries                          | + `weather-psychic` → `http://localhost:3203/mcp`                     |
+| Env vars               | `HSH_*_BACKEND_VERSION`, `HSH_*_MCP_PORT` | `HSH_WEATHER_PSYCHIC_BACKEND_VERSION`, `HSH_WEATHER_PSYCHIC_MCP_PORT` |
 
 - **Decision**: Add the weather backend service (no volume, healthcheck on `/api/health`),
   the weather MCP service, the dev-port override `3103:3000`, and the opencode.json remote entry.
@@ -91,7 +91,7 @@ Same pattern as the existing modules, weather on the next free ports:
 - `src/lib/status.ts`: add `'weather'` to `ModuleKey`, label "Weather", probe
   `/api/weather/api/health`.
 - `src/config.ts`: add `WeatherConfig { location: WeatherLocation; refetchIntervalMs: number;
-  maxDays: number }` with defaults; deep-merge keeps existing override behavior.
+maxDays: number }` with defaults; deep-merge keeps existing override behavior.
 - `public/config.json`: add `weather` block with a real `Location` (Lisbon home-area coords);
   remove the "Weather" placeholder entry (keeps "Energy" and "Media").
 - Tests: extend `config.test.ts` (weather merge/defaults), `status.test.ts` (weather probe up/down),

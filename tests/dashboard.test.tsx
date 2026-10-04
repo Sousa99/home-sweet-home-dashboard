@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import type { DashboardConfig } from '../src/config';
 import { DEFAULT_CONFIG } from '../src/config';
@@ -21,11 +21,17 @@ vi.mock('@sousa99/procrastinator-tracker-components', () => ({
   TaskDeckWrapper: () => <div data-testid="task-deck" />,
 }));
 
+vi.mock('@sousa99/weather-psychic-components', () => ({
+  CurrentWeatherCard: () => <div data-testid="current-weather" />,
+  DailyForecastCard: () => <div data-testid="daily-forecast" />,
+}));
+
 vi.mock('../src/lib/status', () => ({
   checkAllModules: vi.fn().mockResolvedValue([
     { key: 'bus', label: 'Bus', up: true, checkedAt: 0 },
     { key: 'tasks', label: 'Tasks', up: true, checkedAt: 0 },
     { key: 'fly', label: 'Flights', up: true, checkedAt: 0 },
+    { key: 'weather', label: 'Weather', up: true, checkedAt: 0 },
   ]),
 }));
 
@@ -43,6 +49,14 @@ describe('DashboardGrid', () => {
     expect(screen.getByTestId('flight-panel')).toBeInTheDocument();
     expect(screen.getByTestId('fly-over-map')).toBeInTheDocument();
     expect(screen.getByTestId('task-deck')).toBeInTheDocument();
-    expect(screen.getAllByText('Coming soon')).toHaveLength(3);
+    expect(screen.getByTestId('current-weather')).toBeInTheDocument();
+    expect(screen.getByTestId('daily-forecast')).toBeInTheDocument();
+    expect(screen.getAllByText('Coming soon')).toHaveLength(2);
+  });
+
+  it('shows the weather module in the status footer', async () => {
+    render(<DashboardGrid config={DEFAULT_CONFIG} />);
+    const footer = await screen.findByLabelText('Module status');
+    expect(within(footer).getByText('Weather')).toBeInTheDocument();
   });
 });

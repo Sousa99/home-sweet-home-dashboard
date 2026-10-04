@@ -14,3 +14,7 @@ services:
   procrastinator-tracker-backend:
     ports:
       - '3102:3000'
+
+  weather-psychic-backend:
+    ports:
+      - '3103:3000'

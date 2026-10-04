@@ -6,6 +6,7 @@ import { FlightPanelBlock } from '../blocks/FlightPanelBlock';
 import { PlaceholderBlock } from '../blocks/PlaceholderBlock';
 import { StatusBlock } from '../blocks/StatusBlock';
 import { TasksBlock } from '../blocks/TasksBlock';
+import { WeatherBlock } from '../blocks/WeatherBlock';
 import { DateReadout } from '../components/DateReadout';
 import { Plane } from 'lucide-react';
 
@@ -17,6 +18,7 @@ export const BASE_URLS = {
   bus: '/api/bus',
   tasks: '/api/tasks',
   fly: '/api/fly',
+  weather: '/api/weather',
 } as const;
 
 export function DashboardGrid({ config }: { config: DashboardConfig }) {
@@ -61,7 +63,8 @@ export function DashboardGrid({ config }: { config: DashboardConfig }) {
         </section>
       </main>
 
-      <section className="col-span-12 grid grid-cols-3 gap-4" aria-label="Upcoming modules">
+      <section className="col-span-12 grid grid-cols-3 gap-4" aria-label="Modules">
+        <WeatherBlock config={config.weather} baseUrl={BASE_URLS.weather} />
         {config.placeholders.map((placeholder) => (
           <PlaceholderBlock
             key={placeholder.title}

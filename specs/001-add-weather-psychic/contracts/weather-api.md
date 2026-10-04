@@ -10,12 +10,12 @@ remainder to `weather-psychic-backend:3000` (which routes under `/api`).
 
 **Must stay in sync** — both sides of the contract are updated together:
 
-| Side | Location | Entry |
-| ---- | -------- | ----- |
-| SPA baseUrl | `src/layout/DashboardGrid.tsx` `BASE_URLS` | `weather: '/api/weather'` |
-| Container proxy | `deploy/nginx.conf` | `location /api/weather/` → `weather-psychic-backend:3000` |
-| Dev proxy | `vite.config.ts` | `/api/weather` → `http://localhost:3103`, rewrite strips prefix |
-| Dev compose | `docker-compose.dev.yml` | `weather-psychic-backend` ports `3103:3000` |
+| Side            | Location                                   | Entry                                                           |
+| --------------- | ------------------------------------------ | --------------------------------------------------------------- |
+| SPA baseUrl     | `src/layout/DashboardGrid.tsx` `BASE_URLS` | `weather: '/api/weather'`                                       |
+| Container proxy | `deploy/nginx.conf`                        | `location /api/weather/` → `weather-psychic-backend:3000`       |
+| Dev proxy       | `vite.config.ts`                           | `/api/weather` → `http://localhost:3103`, rewrite strips prefix |
+| Dev compose     | `docker-compose.dev.yml`                   | `weather-psychic-backend` ports `3103:3000`                     |
 
 ## 2. REST endpoints (back-end routes reachable through the proxy)
 
@@ -35,10 +35,46 @@ Single forecast payload for a coordinate (WGS84).
 - **Response 200**: `Forecast`
   ```json
   {
-    "location": { "id": 1, "name": "Lisbon", "latitude": 38.72, "longitude": -9.14, "timezone": "Europe/Lisbon" },
-    "current": { "time": "...", "temperature": 19.4, "apparentTemperature": 19.1, "weatherCode": 2, "condition": "Partly cloudy", "humidity": 64, "windSpeed": 12.3, "windDirection": 210, "precipitationProbability": 10, "uvIndex": 3, "isDay": true },
-    "hourly": [ { "time": "...", "temperature": 19.0, "weatherCode": 2, "condition": "Partly cloudy", "precipitationProbability": 10, "isDay": true } ],
-    "daily": [ { "date": "2026-10-05", "weatherCode": 3, "condition": "Overcast", "temperatureMin": 14.2, "temperatureMax": 21.8, "precipitationProbability": 30 } ],
+    "location": {
+      "id": 1,
+      "name": "Lisbon",
+      "latitude": 38.72,
+      "longitude": -9.14,
+      "timezone": "Europe/Lisbon"
+    },
+    "current": {
+      "time": "...",
+      "temperature": 19.4,
+      "apparentTemperature": 19.1,
+      "weatherCode": 2,
+      "condition": "Partly cloudy",
+      "humidity": 64,
+      "windSpeed": 12.3,
+      "windDirection": 210,
+      "precipitationProbability": 10,
+      "uvIndex": 3,
+      "isDay": true
+    },
+    "hourly": [
+      {
+        "time": "...",
+        "temperature": 19.0,
+        "weatherCode": 2,
+        "condition": "Partly cloudy",
+        "precipitationProbability": 10,
+        "isDay": true
+      }
+    ],
+    "daily": [
+      {
+        "date": "2026-10-05",
+        "weatherCode": 3,
+        "condition": "Overcast",
+        "temperatureMin": 14.2,
+        "temperatureMax": 21.8,
+        "precipitationProbability": 30
+      }
+    ],
     "generatedAt": "2026-10-04T12:00:00Z"
   }
   ```
@@ -70,10 +106,10 @@ Geocoding search (not used by the dashboard widgets; listed for completeness of 
 
 Hosted by `WeatherBlock` in the dashboard grid; both widgets self-fetch and honor `baseUrl`.
 
-| Widget | Required props | Optional props |
-| ------ | -------------- | -------------- |
-| `CurrentWeatherCard` | `location: WeatherLocation` | `baseUrl`, `refetchIntervalMs`, `className` |
-| `DailyForecastCard` | `location: WeatherLocation` | `baseUrl`, `refetchIntervalMs`, `maxDays`, `className` |
+| Widget               | Required props              | Optional props                                         |
+| -------------------- | --------------------------- | ------------------------------------------------------ |
+| `CurrentWeatherCard` | `location: WeatherLocation` | `baseUrl`, `refetchIntervalMs`, `className`            |
+| `DailyForecastCard`  | `location: WeatherLocation` | `baseUrl`, `refetchIntervalMs`, `maxDays`, `className` |
 
 - Both receive `location={config.weather.location}` and `baseUrl={BASE_URLS.weather}`.
 - `DailyForecastCard` additionally receives `maxDays={config.weather.maxDays}`.

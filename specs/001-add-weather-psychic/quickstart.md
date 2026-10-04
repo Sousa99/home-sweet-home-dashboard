@@ -30,6 +30,7 @@ pnpm dev
 ```
 
 **Expected**:
+
 - `docker compose ps` shows `weather-psychic-backend` healthy and `weather-psychic-mcp` up.
 - `curl http://localhost:3103/api/health` → `{ "ok": true, "service": "weather-psychic" }`.
 - `curl "http://localhost:3103/api/weather?lat=38.72&lng=-9.14"` → a `Forecast` payload with
@@ -55,6 +56,7 @@ curl http://localhost:3304/api/weather/api/health   # via nginx proxy
 ```
 
 **Expected**:
+
 - `curl http://localhost:3304/api/weather/api/health` → health JSON (proves the nginx rewrite).
 - Dashboard on `:3304` renders weather; status panel shows **Bus, Tasks, Flights, Weather** all up.
 - Existing modules still render (bus, flights, tasks, clock) at their updated versions.

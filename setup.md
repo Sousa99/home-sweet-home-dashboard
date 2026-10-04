@@ -42,7 +42,7 @@ open http://localhost:3304          # HSH_DASHBOARD_PORT to change the port
 ```
 
 Backend SQLite databases are created under `./data/` (bus-catcher and procrastinator-tracker;
-fly-over-tracker is stateless).
+fly-over-tracker and weather-psychic are stateless).
 
 > The published backend images are **linux/amd64 only**, so on arm64 hosts (e.g. Apple Silicon)
 > they run under emulation. `HSH_BACKEND_PLATFORM` (default `linux/amd64`) controls this.
@@ -60,11 +60,14 @@ fly-over-tracker is stateless).
 
 - **Tasks** starts empty — create tasks via the module's API/SPA, or just watch the deck fill.
 - **Flights** uses the live adsb.lol feed — no setup needed.
+- **Weather** uses the keyless Open-Meteo provider — no API key or setup needed. Set the location
+  under `weather.location` in `public/config.json` (`HSH_WEATHER_PSYCHIC_BACKEND_VERSION` /
+  `HSH_WEATHER_PSYCHIC_MCP_PORT` in `.env` override the backend image tag and MCP host port).
 
 ## Develop against the live backends
 
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d   # backends on :3100/:3101/:3102
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d   # backends on :3100/:3101/:3102/:3103
 pnpm dev
 ```
 

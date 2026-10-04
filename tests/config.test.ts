@@ -39,7 +39,65 @@ describe('loadConfig', () => {
     expect(config.clock.switchable).toBe(false);
     expect(config.bus.stops).toEqual([{ id: '1001', name: 'Casal do Canas' }]);
     expect(config.tasks.refreshRateMs).toBe(30000);
-    expect(config.placeholders).toHaveLength(3);
+    expect(config.placeholders).toHaveLength(2);
+    vi.unstubAllGlobals();
+  });
+});
+
+describe('weather config', () => {
+  it('provides a Lisbon-area default with a 15-minute refresh and 5-day forecast', () => {
+    expect(DEFAULT_CONFIG.weather.location).toMatchObject({
+      name: 'Lisbon',
+      timezone: 'Europe/Lisbon',
+      country: 'Portugal',
+    });
+    expect(DEFAULT_CONFIG.weather.refetchIntervalMs).toBe(900000);
+    expect(DEFAULT_CONFIG.weather.maxDays).toBe(5);
+  });
+
+  it('deep-merges partial weather overrides into the defaults', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ weather: { maxDays: 7 } }),
+      }),
+    );
+    const config = await loadConfig();
+    expect(config.weather.maxDays).toBe(7);
+    expect(config.weather.refetchIntervalMs).toBe(900000);
+    expect(config.weather.location.name).toBe('Lisbon');
+    vi.unstubAllGlobals();
+  });
+
+  it('keeps default location fields when the override supplies only a name', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          weather: {
+            location: {
+              id: 2,
+              name: 'Porto',
+              latitude: 41.15,
+              longitude: -8.61,
+              timezone: 'Europe/Lisbon',
+            },
+          },
+        }),
+      }),
+    );
+    const config = await loadConfig();
+    expect(config.weather.location.name).toBe('Porto');
+    expect(config.weather.location.country).toBe('Portugal');
+    vi.unstubAllGlobals();
+  });
+
+  it('falls back to defaults on invalid weather input', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => null }));
+    const config = await loadConfig();
+    expect(config.weather).toEqual(DEFAULT_CONFIG.weather);
     vi.unstubAllGlobals();
   });
 });
