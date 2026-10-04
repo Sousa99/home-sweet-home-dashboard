@@ -8,8 +8,8 @@ importers:
   .:
     dependencies:
       '@sousa99/bus-catcher-components':
-        specifier: ^0.1.3
-        version: 0.1.3(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: ^0.2.0
+        version: 0.2.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@sousa99/current-time-components':
         specifier: ^0.1.1
         version: 0.1.1(lucide-react@0.469.0(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -945,11 +945,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@sousa99/bus-catcher-components@0.1.3':
+  '@sousa99/bus-catcher-components@0.2.0':
     resolution:
       {
-        integrity: sha512-XiMXPRvejnJj2qqFobbD5gO0j6Xovu/fHskAOs72XUH8oufOhEOu4qAzws/eauoUz0jVLXd56WD+TozyNNYqhw==,
-        tarball: https://npm.pkg.github.com/download/@sousa99/bus-catcher-components/0.1.3/34f36f8a929f6a9927dc2831a0def5511dd7b90d,
+        integrity: sha512-x9ChUhhLH+eJE/uZiwP1km+FypWYWfluLXPr5tWvCG2lZoL94jkTRsqgN8fUosExYb7l7M+qoLF62L8V/UME6w==,
+        tarball: https://npm.pkg.github.com/download/@sousa99/bus-catcher-components/0.2.0/51936f0e7df774d2ed11186915c13a326a383617,
       }
     engines: { node: '>=24.0.0' }
     peerDependencies:
@@ -3570,7 +3570,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.63.6':
     optional: true
 
-  '@sousa99/bus-catcher-components@0.1.3(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@sousa99/bus-catcher-components@0.2.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@tanstack/react-query': 5.104.0(react@19.3.0)
       react: 19.3.0
