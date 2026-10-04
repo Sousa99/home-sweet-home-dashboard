@@ -47,7 +47,7 @@ describe('loadConfig', () => {
 describe('weather config', () => {
   it('provides a Lisbon-area default with a 15-minute refresh and 5-day forecast', () => {
     expect(DEFAULT_CONFIG.weather.location).toMatchObject({
-      name: 'Lisbon',
+      name: 'Camarate',
       timezone: 'Europe/Lisbon',
       country: 'Portugal',
     });
@@ -66,7 +66,7 @@ describe('weather config', () => {
     const config = await loadConfig();
     expect(config.weather.maxDays).toBe(7);
     expect(config.weather.refetchIntervalMs).toBe(900000);
-    expect(config.weather.location.name).toBe('Lisbon');
+    expect(config.weather.location.name).toBe('Camarate');
     vi.unstubAllGlobals();
   });
 

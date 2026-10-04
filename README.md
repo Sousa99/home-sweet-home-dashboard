@@ -85,7 +85,7 @@ All block behavior lives in [`public/config.json`](public/config.json). See
   "weather": {
     "location": {
       "id": 1,
-      "name": "Lisbon",
+      "name": "Camarate",
       "latitude": 38.804428,
       "longitude": -9.123621,
       "timezone": "Europe/Lisbon",

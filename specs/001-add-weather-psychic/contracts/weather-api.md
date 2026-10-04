@@ -37,7 +37,7 @@ Single forecast payload for a coordinate (WGS84).
   {
     "location": {
       "id": 1,
-      "name": "Lisbon",
+      "name": "Camarate",
       "latitude": 38.72,
       "longitude": -9.14,
       "timezone": "Europe/Lisbon"

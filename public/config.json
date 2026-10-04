@@ -17,7 +17,7 @@
   "weather": {
     "location": {
       "id": 1,
-      "name": "Lisbon",
+      "name": "Camarate",
       "latitude": 38.804428,
       "longitude": -9.123621,
       "timezone": "Europe/Lisbon",

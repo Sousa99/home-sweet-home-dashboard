@@ -76,7 +76,7 @@ export const DEFAULT_CONFIG: DashboardConfig = {
   weather: {
     location: {
       id: 1,
-      name: 'Lisbon',
+      name: 'Camarate',
       latitude: 38.7223,
       longitude: -9.1393,
       timezone: 'Europe/Lisbon',
