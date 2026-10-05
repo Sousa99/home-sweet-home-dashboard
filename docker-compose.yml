@@ -30,7 +30,7 @@ services:
     restart: unless-stopped
 
   fly-over-tracker-backend:
-    image: ghcr.io/sousa99/fly-over-tracker-backend:${HSH_FLY_OVER_TRACKER_BACKEND_VERSION:-0.3.0}
+    image: ghcr.io/sousa99/fly-over-tracker-backend:${HSH_FLY_OVER_TRACKER_BACKEND_VERSION:-0.5.0}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['node', 'dist/index.js', '--http']
     environment:
@@ -99,7 +99,7 @@ services:
     restart: unless-stopped
 
   fly-over-tracker-mcp:
-    image: ghcr.io/sousa99/fly-over-tracker-backend:${HSH_FLY_OVER_TRACKER_BACKEND_VERSION:-0.3.0}
+    image: ghcr.io/sousa99/fly-over-tracker-backend:${HSH_FLY_OVER_TRACKER_BACKEND_VERSION:-0.5.0}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['node', 'dist/index.js', '--mcp']
     environment:

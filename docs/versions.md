@@ -14,7 +14,7 @@ Each Home Sweet Home module is consumed by the dashboard as **two independent kn
 | Module                 | Components | Backend image |
 | ---------------------- | ---------- | ------------- |
 | bus-catcher            | `^0.1.2`   | `0.1.2`       |
-| fly-over-tracker       | `^0.3.0`   | `0.3.0`       |
+| fly-over-tracker       | `^0.5.0`   | `0.5.0`       |
 | procrastinator-tracker | `^0.1.2`   | `0.1.2`       |
 | current-time           | `^0.1.1`   | —             |
 
