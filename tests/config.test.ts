@@ -37,9 +37,31 @@ describe('loadConfig', () => {
     const config = await loadConfig();
     expect(config.clock.defaultFormat).toBe('12h');
     expect(config.clock.switchable).toBe(false);
+    expect(config.clock.align).toBe('right');
     expect(config.bus.stops).toEqual([{ id: '1001', name: 'Casal do Canas' }]);
     expect(config.tasks.refreshRateMs).toBe(30000);
     expect(config.placeholders).toHaveLength(0);
+    vi.unstubAllGlobals();
+  });
+});
+
+describe('tasks config', () => {
+  it('defaults to the subtle slide-up animation with an extended duration', () => {
+    expect(DEFAULT_CONFIG.tasks.transitionVariant).toBe('slide-up');
+    expect(DEFAULT_CONFIG.tasks.slideDurationMs).toBe(750);
+  });
+
+  it('deep-merges task animation overrides', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ tasks: { transitionVariant: 'slide', slideDurationMs: 300 } }),
+      }),
+    );
+    const config = await loadConfig();
+    expect(config.tasks.transitionVariant).toBe('slide');
+    expect(config.tasks.slideDurationMs).toBe(300);
     vi.unstubAllGlobals();
   });
 });

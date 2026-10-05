@@ -25,7 +25,7 @@ module source.
 
 | Block                    | Widget                                  | Module package                               |
 | ------------------------ | --------------------------------------- | -------------------------------------------- |
-| Clock                    | `ClockCard`                             | `@sousa99/current-time-components`           |
+| Clock                    | `ClockPlain`                            | `@sousa99/current-time-components`           |
 | Flights — closest + list | `FlyOverClosestPanel` (`maxResults`)    | `@sousa99/fly-over-tracker-components`       |
 | Flights — map            | `FlyOverMapCard`                        | `@sousa99/fly-over-tracker-components`       |
 | Tasks                    | `TaskDeckWrapper`                       | `@sousa99/procrastinator-tracker-components` |
@@ -65,19 +65,21 @@ All block behavior lives in [`public/config.json`](public/config.json). See
 
 ```jsonc
 {
-  "clock": { "defaultFormat": "24h", "switchable": false },
+  "clock": { "defaultFormat": "24h", "switchable": false, "align": "right" },
   "bus": {
     "stops": [{ "id": "376204", "name": "Rua Ivone Silva Frente 10", "lines": ["2711:0"] }],
   },
   "flights": {
     "location": { "lat": 38.804428, "lng": -9.123621, "radiusKm": 4 },
-    "autoRefresh": 20,
+    "autoRefresh": 10,
     "maxResults": 5,
   },
   "tasks": {
     "filters": { "finished": false },
     "refreshRateMs": 30000,
     "autoRotateMs": 4000,
+    "transitionVariant": "slide-up",
+    "slideDurationMs": 750,
   },
   "status": { "intervalMs": 30000 },
   "weather": {

@@ -14,6 +14,8 @@ export function TasksBlock({ config, baseUrl }: { config: TasksConfig; baseUrl: 
         refreshRateMs={config.refreshRateMs}
         baseUrl={baseUrl}
         autoRotateMs={config.autoRotateMs}
+        transitionVariant={config.transitionVariant}
+        slideDurationMs={config.slideDurationMs}
         className="w-full"
       />
     </section>

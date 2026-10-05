@@ -28,7 +28,7 @@ export function DashboardGrid({ config }: { config: DashboardConfig }) {
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">Home Sweet Home</h1>
           <DateReadout />
         </div>
-        <div className="col-span-3 h-24 overflow-hidden rounded-xl border border-amber-500/20 bg-white p-2 shadow-sm">
+        <div className="col-span-3 h-24 overflow-hidden p-2">
           <ClockBlock config={config.clock} />
         </div>
       </header>

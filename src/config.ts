@@ -1,12 +1,15 @@
 import type { RefreshRate } from '@sousa99/fly-over-tracker-components';
-import type { TaskFilters } from '@sousa99/procrastinator-tracker-components';
+import type { TaskFilters, TransitionVariant } from '@sousa99/procrastinator-tracker-components';
 import type { Location as WeatherLocation } from '@sousa99/weather-psychic-components';
 
 export type ClockFormat = '12h' | '24h';
 
+export type ClockAlign = 'left' | 'center' | 'right';
+
 export interface ClockConfig {
   defaultFormat: ClockFormat;
   switchable: boolean;
+  align: ClockAlign;
 }
 
 export interface BusStopConfig {
@@ -33,6 +36,10 @@ export interface TasksConfig {
   filters: TaskFilters;
   refreshRateMs: number;
   autoRotateMs: number;
+  /** Card exit animation: `slide-up` is the calm, no-sideways-travel variant. */
+  transitionVariant: TransitionVariant;
+  /** Card transition duration in ms. */
+  slideDurationMs: number;
 }
 
 export interface StatusConfig {
@@ -62,7 +69,7 @@ export interface DashboardConfig {
 }
 
 export const DEFAULT_CONFIG: DashboardConfig = {
-  clock: { defaultFormat: '24h', switchable: false },
+  clock: { defaultFormat: '24h', switchable: false, align: 'right' },
   bus: { stops: [] },
   flights: {
     location: { lat: 38.7223, lng: -9.1393, radiusKm: 100 },
@@ -70,7 +77,13 @@ export const DEFAULT_CONFIG: DashboardConfig = {
     maxResults: 5,
     debugMap: false,
   },
-  tasks: { filters: { finished: false }, refreshRateMs: 30000, autoRotateMs: 4000 },
+  tasks: {
+    filters: { finished: false },
+    refreshRateMs: 30000,
+    autoRotateMs: 4000,
+    transitionVariant: 'slide-up',
+    slideDurationMs: 750,
+  },
   weather: {
     location: {
       id: 1,

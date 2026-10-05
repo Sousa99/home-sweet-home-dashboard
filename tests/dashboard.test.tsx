@@ -9,7 +9,7 @@ vi.mock('@sousa99/bus-catcher-components', () => ({
 }));
 
 vi.mock('@sousa99/current-time-components', () => ({
-  ClockCard: () => <div data-testid="clock-card" />,
+  ClockPlain: () => <div data-testid="clock-plain" />,
 }));
 
 vi.mock('@sousa99/fly-over-tracker-components', () => ({
@@ -43,7 +43,7 @@ describe('DashboardGrid', () => {
     render(<DashboardGrid config={config} />);
 
     expect(screen.getByText('Home Sweet Home')).toBeInTheDocument();
-    expect(screen.getByTestId('clock-card')).toBeInTheDocument();
+    expect(screen.getByTestId('clock-plain')).toBeInTheDocument();
     expect(screen.getByTestId('stop-card')).toBeInTheDocument();
     expect(screen.getByTestId('flight-panel')).toBeInTheDocument();
     expect(screen.getByTestId('fly-over-map')).toBeInTheDocument();
