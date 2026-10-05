@@ -14,8 +14,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1(lucide-react@0.469.0(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@sousa99/fly-over-tracker-components':
-        specifier: ^0.4.3
-        version: 0.4.3(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react-leaflet@5.0.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
+        specifier: ^0.5.0
+        version: 0.5.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react-leaflet@5.0.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
       '@sousa99/procrastinator-tracker-components':
         specifier: ^0.2.0
         version: 0.2.0(@types/react@19.3.0)(lucide-react@0.469.0(react@19.3.0))(motion@13.5.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -968,11 +968,11 @@ packages:
       react: ^19.0.0
       react-dom: ^19.0.0
 
-  '@sousa99/fly-over-tracker-components@0.4.3':
+  '@sousa99/fly-over-tracker-components@0.5.0':
     resolution:
       {
-        integrity: sha512-zHyZsoiv5wcJNNixPDIta5CH8xa3JHGnMXs/WdQWX+MbXWxk6yAq0FCT5SwcvXFA6hUCcKg90CVAySKS8Wz0iA==,
-        tarball: https://npm.pkg.github.com/download/@sousa99/fly-over-tracker-components/0.4.3/487732c8ef32a10766ac0067b6d879ec727c1262,
+        integrity: sha512-x1m4POv8gCrPKWNDwV55OlfRB5rgyb1UBO7NZft8GU2kOXQMhFByVJdxWOIgNL+gtXGyVnFcK+0FU7A/jLo/Ag==,
+        tarball: https://npm.pkg.github.com/download/@sousa99/fly-over-tracker-components/0.5.0/fe5677b3ef51ff908f0ef151f226aba3b94d6c53,
       }
     engines: { node: '>=24.0.0' }
     peerDependencies:
@@ -3583,7 +3583,7 @@ snapshots:
       react-dom: 19.3.0(react@19.3.0)
       react-router: 7.18.4(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
 
-  '@sousa99/fly-over-tracker-components@0.4.3(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react-leaflet@5.0.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)':
+  '@sousa99/fly-over-tracker-components@0.5.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react-leaflet@5.0.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)':
     dependencies:
       '@tanstack/react-query': 5.104.0(react@19.3.0)
       leaflet: 1.9.4
