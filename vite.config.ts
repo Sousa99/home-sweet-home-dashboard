@@ -29,6 +29,10 @@ export default defineConfig({
         ...moduleApi('http://localhost:3101'),
         rewrite: (path) => path.replace(/^\/api\/fly/, ''),
       },
+      '/api/weather': {
+        ...moduleApi('http://localhost:3103'),
+        rewrite: (path) => path.replace(/^\/api\/weather/, ''),
+      },
     },
   },
 });

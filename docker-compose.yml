@@ -8,7 +8,7 @@ name: home-sweet-home-dashboard
 
 services:
   bus-catcher-backend:
-    image: ghcr.io/sousa99/bus-catcher-backend:${HSH_BUS_CATCHER_BACKEND_VERSION:-0.1.2}
+    image: ghcr.io/sousa99/bus-catcher-backend:${HSH_BUS_CATCHER_BACKEND_VERSION:-0.2.0}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['node', 'dist/index.js', '--http']
     environment:
@@ -30,7 +30,7 @@ services:
     restart: unless-stopped
 
   fly-over-tracker-backend:
-    image: ghcr.io/sousa99/fly-over-tracker-backend:${HSH_FLY_OVER_TRACKER_BACKEND_VERSION:-0.3.0}
+    image: ghcr.io/sousa99/fly-over-tracker-backend:${HSH_FLY_OVER_TRACKER_BACKEND_VERSION:-0.5.0}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['node', 'dist/index.js', '--http']
     environment:
@@ -51,7 +51,7 @@ services:
     restart: unless-stopped
 
   procrastinator-tracker-backend:
-    image: ghcr.io/sousa99/procrastinator-tracker-backend:${HSH_PROCRASTINATOR_TRACKER_BACKEND_VERSION:-0.1.2}
+    image: ghcr.io/sousa99/procrastinator-tracker-backend:${HSH_PROCRASTINATOR_TRACKER_BACKEND_VERSION:-0.2.0}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['sh', '-c', 'node dist/migrate.js && node dist/index.js --http']
     environment:
@@ -75,7 +75,7 @@ services:
   # MCP servers (streamable HTTP at /mcp) — the same backend images in --mcp
   # mode. opencode.json connects to these via the host ports 3200/3201/3202.
   bus-catcher-mcp:
-    image: ghcr.io/sousa99/bus-catcher-backend:${HSH_BUS_CATCHER_BACKEND_VERSION:-0.1.2}
+    image: ghcr.io/sousa99/bus-catcher-backend:${HSH_BUS_CATCHER_BACKEND_VERSION:-0.2.0}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['node', 'dist/index.js', '--mcp']
     environment:
@@ -99,7 +99,7 @@ services:
     restart: unless-stopped
 
   fly-over-tracker-mcp:
-    image: ghcr.io/sousa99/fly-over-tracker-backend:${HSH_FLY_OVER_TRACKER_BACKEND_VERSION:-0.3.0}
+    image: ghcr.io/sousa99/fly-over-tracker-backend:${HSH_FLY_OVER_TRACKER_BACKEND_VERSION:-0.5.0}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['node', 'dist/index.js', '--mcp']
     environment:
@@ -121,7 +121,7 @@ services:
     restart: unless-stopped
 
   procrastinator-tracker-mcp:
-    image: ghcr.io/sousa99/procrastinator-tracker-backend:${HSH_PROCRASTINATOR_TRACKER_BACKEND_VERSION:-0.1.2}
+    image: ghcr.io/sousa99/procrastinator-tracker-backend:${HSH_PROCRASTINATOR_TRACKER_BACKEND_VERSION:-0.2.0}
     platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
     command: ['sh', '-c', 'node dist/migrate.js && node dist/index.js --mcp']
     environment:
@@ -132,6 +132,49 @@ services:
       - ./data:/data
     ports:
       - '${HSH_PROCRASTINATOR_TRACKER_MCP_PORT:-3202}:3001'
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "const s=require('net').connect(3001,'127.0.0.1',()=>process.exit(0));s.on('error',()=>process.exit(1))"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  # weather-psychic — stateless (no DB volume), keyless Open-Meteo provider.
+  weather-psychic-backend:
+    image: ghcr.io/sousa99/weather-psychic-backend:${HSH_WEATHER_PSYCHIC_BACKEND_VERSION:-0.1.0}
+    platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
+    command: ['node', 'dist/index.js', '--http']
+    environment:
+      HOST: 0.0.0.0
+      PORT: '3000'
+      MCP_PORT: '3001'
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  weather-psychic-mcp:
+    image: ghcr.io/sousa99/weather-psychic-backend:${HSH_WEATHER_PSYCHIC_BACKEND_VERSION:-0.1.0}
+    platform: ${HSH_BACKEND_PLATFORM:-linux/amd64}
+    command: ['node', 'dist/index.js', '--mcp']
+    environment:
+      HOST: 0.0.0.0
+      PORT: '3000'
+      MCP_PORT: '3001'
+    ports:
+      - '${HSH_WEATHER_PSYCHIC_MCP_PORT:-3203}:3001'
     healthcheck:
       test:
         - CMD
@@ -159,6 +202,8 @@ services:
       fly-over-tracker-backend:
         condition: service_healthy
       procrastinator-tracker-backend:
+        condition: service_healthy
+      weather-psychic-backend:
         condition: service_healthy
     restart: unless-stopped
 

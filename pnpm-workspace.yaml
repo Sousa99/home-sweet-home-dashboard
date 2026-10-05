@@ -4,6 +4,7 @@ minimumReleaseAgeExclude:
   - '@sousa99/fly-over-tracker-components'
   - '@sousa99/procrastinator-tracker-components'
   - '@sousa99/homesweethome-config'
+  - '@sousa99/weather-psychic-components@0.1.0'
 
 allowBuilds:
   esbuild: true

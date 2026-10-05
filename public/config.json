@@ -4,7 +4,7 @@
     "stops": [{ "id": "376204", "name": "Rua Ivone Silva Frente 10", "lines": ["2711:0"] }]
   },
   "flights": {
-    "location": { "lat": 38.804428, "lng": -9.123621, "radiusKm": 20 },
+    "location": { "lat": 38.804428, "lng": -9.123621, "radiusKm": 5 },
     "autoRefresh": 20,
     "maxResults": 5,
     "debugMap": true
@@ -14,10 +14,17 @@
     "refreshRateMs": 30000,
     "autoRotateMs": 4000
   },
+  "weather": {
+    "location": {
+      "id": 1,
+      "name": "Camarate",
+      "latitude": 38.804428,
+      "longitude": -9.123621,
+      "timezone": "Europe/Lisbon",
+      "country": "Portugal"
+    },
+    "refetchIntervalMs": 900000
+  },
   "status": { "intervalMs": 60000 },
-  "placeholders": [
-    { "title": "Weather", "description": "Outdoor conditions at a glance." },
-    { "title": "Energy", "description": "Household power and consumption." },
-    { "title": "Media", "description": "Now playing and upcoming releases." }
-  ]
+  "placeholders": []
 }

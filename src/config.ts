@@ -1,5 +1,6 @@
 import type { RefreshRate } from '@sousa99/fly-over-tracker-components';
 import type { TaskFilters } from '@sousa99/procrastinator-tracker-components';
+import type { Location as WeatherLocation } from '@sousa99/weather-psychic-components';
 
 export type ClockFormat = '12h' | '24h';
 
@@ -38,6 +39,13 @@ export interface StatusConfig {
   intervalMs: number;
 }
 
+export interface WeatherConfig {
+  /** The place whose current + hourly weather is shown. */
+  location: WeatherLocation;
+  /** Auto-refresh cadence in ms; `0` disables. */
+  refetchIntervalMs: number;
+}
+
 export interface PlaceholderConfig {
   title: string;
   description: string;
@@ -48,6 +56,7 @@ export interface DashboardConfig {
   bus: BusConfig;
   flights: FlightsConfig;
   tasks: TasksConfig;
+  weather: WeatherConfig;
   status: StatusConfig;
   placeholders: PlaceholderConfig[];
 }
@@ -62,12 +71,19 @@ export const DEFAULT_CONFIG: DashboardConfig = {
     debugMap: false,
   },
   tasks: { filters: { finished: false }, refreshRateMs: 30000, autoRotateMs: 4000 },
+  weather: {
+    location: {
+      id: 1,
+      name: 'Camarate',
+      latitude: 38.7223,
+      longitude: -9.1393,
+      timezone: 'Europe/Lisbon',
+      country: 'Portugal',
+    },
+    refetchIntervalMs: 900000,
+  },
   status: { intervalMs: 30000 },
-  placeholders: [
-    { title: 'Weather', description: 'Outdoor conditions at a glance.' },
-    { title: 'Energy', description: 'Household power and consumption.' },
-    { title: 'Media', description: 'Now playing and upcoming releases.' },
-  ],
+  placeholders: [],
 };
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {

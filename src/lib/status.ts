@@ -1,4 +1,4 @@
-export type ModuleKey = 'bus' | 'tasks' | 'fly';
+export type ModuleKey = 'bus' | 'tasks' | 'fly' | 'weather';
 
 export interface ModuleStatus {
   key: ModuleKey;
@@ -24,18 +24,20 @@ export interface CheckOptions {
   flyLocation?: LocationQuery;
 }
 
-export const MODULE_KEYS: ModuleKey[] = ['bus', 'tasks', 'fly'];
+export const MODULE_KEYS: ModuleKey[] = ['bus', 'tasks', 'fly', 'weather'];
 
 const LABELS: Record<ModuleKey, string> = {
   bus: 'Bus',
   tasks: 'Tasks',
   fly: 'Flights',
+  weather: 'Weather',
 };
 
 const PROBE_PATHS: Record<ModuleKey, string> = {
   bus: '/api/bus/api/health',
   tasks: '/api/tasks/health',
   fly: '/api/fly/api/fly-overs',
+  weather: '/api/weather/api/health',
 };
 
 function flyProbeUrl(location?: LocationQuery): string {

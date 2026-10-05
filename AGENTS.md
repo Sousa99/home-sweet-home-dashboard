@@ -48,6 +48,9 @@ docker compose up -d                                # dashboard on :3304 (HSH_DA
 - **Config first**: block behavior lives in `public/config.json` (typed in `src/config.ts` with
   defaults); avoid hardcoding stop ids, coordinates, or refresh rates in components.
 - **Commits**: conventional-commit style `type(scope): summary`; pre-commit hook runs lint-staged.
+- **Feature branches**: `feature/<feature-number>-<feature-description-with-dashes>` — e.g.
+  `feature/001-add-weather-psychic` for spec `specs/001-add-weather-psychic/`. Never use a bare
+  `NNN-name` branch; the `feature/` prefix is required.
 
 ## Agent & skill routing
 

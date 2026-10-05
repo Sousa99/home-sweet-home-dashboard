@@ -8,15 +8,17 @@ Each Home Sweet Home module is consumed by the dashboard as **two independent kn
 | fly-over-tracker       | `@sousa99/fly-over-tracker-components` (in `package.json`)       | `ghcr.io/sousa99/fly-over-tracker-backend:${HSH_FLY_OVER_TRACKER_BACKEND_VERSION}`             |
 | procrastinator-tracker | `@sousa99/procrastinator-tracker-components` (in `package.json`) | `ghcr.io/sousa99/procrastinator-tracker-backend:${HSH_PROCRASTINATOR_TRACKER_BACKEND_VERSION}` |
 | current-time           | `@sousa99/current-time-components` (in `package.json`)           | — (frontend-only module)                                                                       |
+| weather-psychic        | `@sousa99/weather-psychic-components` (in `package.json`)        | `ghcr.io/sousa99/weather-psychic-backend:${HSH_WEATHER_PSYCHIC_BACKEND_VERSION}`               |
 
 ## Current pins
 
 | Module                 | Components | Backend image |
 | ---------------------- | ---------- | ------------- |
-| bus-catcher            | `^0.1.2`   | `0.1.2`       |
-| fly-over-tracker       | `^0.3.0`   | `0.3.0`       |
-| procrastinator-tracker | `^0.1.2`   | `0.1.2`       |
+| bus-catcher            | `^0.2.0`   | `0.2.0`       |
+| fly-over-tracker       | `^0.5.0`   | `0.5.0`       |
+| procrastinator-tracker | `^0.2.0`   | `0.2.0`       |
 | current-time           | `^0.1.1`   | —             |
+| weather-psychic        | `^0.1.0`   | `0.1.0`       |
 
 ## Upgrading one module (example: bus-catcher → 0.2.0)
 
