@@ -1,6 +1,8 @@
 import type { RefreshRate } from '@sousa99/fly-over-tracker-components';
 import type { TaskFilters, TransitionVariant } from '@sousa99/procrastinator-tracker-components';
 import type { Location as WeatherLocation } from '@sousa99/weather-psychic-components';
+import type { BlockId } from './layout/blocks';
+import { sanitizeBlockOrder } from './layout/layout';
 
 export type ClockFormat = '12h' | '24h';
 
@@ -46,6 +48,15 @@ export interface StatusConfig {
   intervalMs: number;
 }
 
+export interface LayoutConfig {
+  /** Block order on phone, after the clock/date header. */
+  phoneOrder: BlockId[];
+  /** Blocks omitted on phone. */
+  hiddenOnPhone: BlockId[];
+  /** Blocks omitted on tablet. */
+  hiddenOnTablet: BlockId[];
+}
+
 export interface WeatherConfig {
   /** The place whose current + hourly weather is shown. */
   location: WeatherLocation;
@@ -65,6 +76,7 @@ export interface DashboardConfig {
   tasks: TasksConfig;
   weather: WeatherConfig;
   status: StatusConfig;
+  layout: LayoutConfig;
   placeholders: PlaceholderConfig[];
 }
 
@@ -96,6 +108,11 @@ export const DEFAULT_CONFIG: DashboardConfig = {
     refetchIntervalMs: 900000,
   },
   status: { intervalMs: 30000 },
+  layout: {
+    phoneOrder: ['bus', 'weather', 'tasks', 'flights', 'map', 'status'],
+    hiddenOnPhone: [],
+    hiddenOnTablet: [],
+  },
   placeholders: [],
 };
 
@@ -117,6 +134,21 @@ function mergeDeep<T>(base: T, override: unknown): T {
   return out as T;
 }
 
+function resolveBlockList(value: unknown, fallback: BlockId[]): BlockId[] {
+  const sanitized = sanitizeBlockOrder(value);
+  return sanitized === null ? [...fallback] : sanitized;
+}
+
+/** Sanitize the layout section after merging so invalid input never leaks in. */
+function normalizeLayout(value: unknown): LayoutConfig {
+  if (!isPlainObject(value)) return { ...DEFAULT_CONFIG.layout };
+  return {
+    phoneOrder: resolveBlockList(value.phoneOrder, DEFAULT_CONFIG.layout.phoneOrder),
+    hiddenOnPhone: resolveBlockList(value.hiddenOnPhone, DEFAULT_CONFIG.layout.hiddenOnPhone),
+    hiddenOnTablet: resolveBlockList(value.hiddenOnTablet, DEFAULT_CONFIG.layout.hiddenOnTablet),
+  };
+}
+
 /**
  * Load and validate the runtime dashboard config from `/config.json`, deep
  * merged over the built-in defaults. Never throws; on any failure the
@@ -127,7 +159,8 @@ export async function loadConfig(url = '/config.json'): Promise<DashboardConfig>
     const res = await fetch(url, { headers: { Accept: 'application/json' } });
     if (!res.ok) return DEFAULT_CONFIG;
     const data = (await res.json()) as unknown;
-    return mergeDeep(DEFAULT_CONFIG, data);
+    const merged = mergeDeep(DEFAULT_CONFIG, data);
+    return { ...merged, layout: normalizeLayout(merged.layout) };
   } catch {
     return DEFAULT_CONFIG;
   }

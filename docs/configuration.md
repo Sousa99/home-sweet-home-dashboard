@@ -16,6 +16,11 @@ The dashboard reads `public/config.json` at runtime and deep-merges it over the 
   },
   "tasks": { "filters": {}, "refreshRateMs": 30000, "autoRotateMs": 4000 },
   "status": { "intervalMs": 30000 },
+  "layout": {
+    "phoneOrder": ["bus", "weather", "tasks", "flights", "map", "status"],
+    "hiddenOnPhone": [],
+    "hiddenOnTablet": [],
+  },
   "placeholders": [/* { title, description }[] */],
 }
 ```
@@ -73,6 +78,21 @@ The strip probes each module through the same `/api/<module>` proxies used by th
 - **flights** — `/api/fly/api/fly-overs?lat=0&lng=0&radiusKm=1` (200 = up)
 
 A 5xx or network failure marks the module as offline.
+
+## layout
+
+Small-screen ordering and visibility. Desktop and TV ignore this section so the wall display keeps
+its fixed three-column arrangement. Invalid values fall back to the defaults; unknown or duplicate
+block ids are dropped.
+
+| Key              | Default                                              | Description                                                   |
+| ---------------- | ---------------------------------------------------- | ------------------------------------------------------------- |
+| `phoneOrder`     | `["bus","weather","tasks","flights","map","status"]` | Phone block order after the clock/date header.                |
+| `hiddenOnPhone`  | `[]`                                                 | Blocks omitted on phone (ignored if it would hide them all).  |
+| `hiddenOnTablet` | `[]`                                                 | Blocks omitted on tablet (ignored if it would hide them all). |
+
+Valid block ids: `weather`, `bus`, `tasks`, `flights`, `map`, `status`. Blocks missing from
+`phoneOrder` are appended in the default order.
 
 ## placeholders
 

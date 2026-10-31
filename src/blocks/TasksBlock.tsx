@@ -2,7 +2,15 @@ import { TaskDeckWrapper } from '@sousa99/procrastinator-tracker-components';
 import { ListTodo } from 'lucide-react';
 import type { TasksConfig } from '../config';
 
-export function TasksBlock({ config, baseUrl }: { config: TasksConfig; baseUrl: string }) {
+export function TasksBlock({
+  config,
+  baseUrl,
+  compact = false,
+}: {
+  config: TasksConfig;
+  baseUrl: string;
+  compact?: boolean;
+}) {
   return (
     <section className="flex w-full shrink-0 flex-col gap-3" aria-label="Tasks">
       <header className="flex items-center gap-2 text-slate-700">
@@ -17,6 +25,7 @@ export function TasksBlock({ config, baseUrl }: { config: TasksConfig; baseUrl: 
         transitionVariant={config.transitionVariant}
         slideDurationMs={config.slideDurationMs}
         className="w-full"
+        style={compact ? { '--deck-height': '12rem' } : undefined}
       />
     </section>
   );

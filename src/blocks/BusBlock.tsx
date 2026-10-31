@@ -2,7 +2,16 @@ import { StopCard } from '@sousa99/bus-catcher-components';
 import { Bus } from 'lucide-react';
 import type { BusConfig } from '../config';
 
-export function BusBlock({ config, baseUrl }: { config: BusConfig; baseUrl: string }) {
+export function BusBlock({
+  config,
+  baseUrl,
+  compact = false,
+}: {
+  config: BusConfig;
+  baseUrl: string;
+  compact?: boolean;
+}) {
+  const compactLimit = 2;
   return (
     <section className="flex h-full w-full flex-col gap-3 overflow-hidden" aria-label="Bus stops">
       <header className="flex items-center gap-2 text-slate-700">
@@ -25,7 +34,7 @@ export function BusBlock({ config, baseUrl }: { config: BusConfig; baseUrl: stri
               stopId={stop.id}
               stopName={stop.name}
               lines={stop.lines}
-              limit={stop.limit ?? 5}
+              limit={compact ? Math.min(stop.limit ?? 5, compactLimit) : (stop.limit ?? 5)}
               refetchIntervalMs={stop.refetchIntervalMs ?? 15000}
               baseUrl={baseUrl}
             />

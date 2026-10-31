@@ -28,5 +28,10 @@
     "refetchIntervalMs": 900000
   },
   "status": { "intervalMs": 60000 },
+  "layout": {
+    "phoneOrder": ["bus", "weather", "tasks", "flights", "map", "status"],
+    "hiddenOnPhone": [],
+    "hiddenOnTablet": []
+  },
   "placeholders": []
 }

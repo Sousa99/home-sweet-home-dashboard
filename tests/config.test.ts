@@ -121,3 +121,66 @@ describe('weather config', () => {
     vi.unstubAllGlobals();
   });
 });
+
+describe('layout config', () => {
+  it('provides the documented phone defaults', () => {
+    expect(DEFAULT_CONFIG.layout.phoneOrder).toEqual([
+      'bus',
+      'weather',
+      'tasks',
+      'flights',
+      'map',
+      'status',
+    ]);
+    expect(DEFAULT_CONFIG.layout.hiddenOnPhone).toEqual([]);
+    expect(DEFAULT_CONFIG.layout.hiddenOnTablet).toEqual([]);
+  });
+
+  it('replaces the phone order array wholesale', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ layout: { phoneOrder: ['weather'] } }),
+      }),
+    );
+    const config = await loadConfig();
+    expect(config.layout.phoneOrder).toEqual(['weather']);
+    expect(config.layout.hiddenOnPhone).toEqual([]);
+    vi.unstubAllGlobals();
+  });
+
+  it('drops unknown and duplicate block ids while loading', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          layout: {
+            phoneOrder: ['nope', 'bus', 'bus'],
+            hiddenOnPhone: ['map', 'wat'],
+            hiddenOnTablet: 'map',
+          },
+        }),
+      }),
+    );
+    const config = await loadConfig();
+    expect(config.layout.phoneOrder).toEqual(['bus']);
+    expect(config.layout.hiddenOnPhone).toEqual(['map']);
+    expect(config.layout.hiddenOnTablet).toEqual([]);
+    vi.unstubAllGlobals();
+  });
+
+  it('falls back to defaults for invalid layout shapes', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ layout: { phoneOrder: 'bus', hiddenOnPhone: null } }),
+      }),
+    );
+    const config = await loadConfig();
+    expect(config.layout).toEqual(DEFAULT_CONFIG.layout);
+    vi.unstubAllGlobals();
+  });
+});

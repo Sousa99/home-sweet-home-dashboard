@@ -7,3 +7,24 @@ if (!globalThis.fetch) {
   globalThis.fetch = (() =>
     Promise.reject(new Error('fetch stubbed offline in tests'))) as typeof fetch;
 }
+
+// jsdom does not implement matchMedia. Default to a desktop-shaped viewport so
+// existing tests keep the original three-column layout unless they opt into a
+// different viewport with tests/helpers/matchMedia.ts.
+if (typeof window !== 'undefined' && typeof window.matchMedia !== 'function') {
+  Object.defineProperty(window, 'matchMedia', {
+    configurable: true,
+    writable: true,
+    value: (query: string): MediaQueryList =>
+      ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addEventListener: () => undefined,
+        removeEventListener: () => undefined,
+        addListener: () => undefined,
+        removeListener: () => undefined,
+        dispatchEvent: () => false,
+      }) as unknown as MediaQueryList,
+  });
+}

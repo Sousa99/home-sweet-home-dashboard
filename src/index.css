@@ -11,9 +11,17 @@
  * TV / large-screen scaling: the whole dashboard is laid out in rem, so a
  * fluid root font size scales every block (and the widgets' own ResizeObserver
  * font scaling) from a 720p floor up to 4K.
+ *
+ * Phone/tablet use a 16px floor so the widgets' text-xs/text-sm stay legible
+ * instead of shrinking below a comfortable mobile size.
  */
 :root {
   font-size: clamp(14px, 0.75vw, 36px);
+}
+
+html[data-viewport='phone'],
+html[data-viewport='tablet'] {
+  font-size: 16px;
 }
 
 html,
@@ -28,4 +36,279 @@ body {
   background-color: #fffbeb;
   color: #0f172a;
   font-family: var(--font-sans);
+}
+
+html[data-viewport='phone'] body,
+html[data-viewport='tablet'] body {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* ------------------------------------------------------------------ */
+/* Shell: desktop/TV keep the original three-column, scroll-free grid. */
+/* ------------------------------------------------------------------ */
+
+.dashboard-shell {
+  box-sizing: border-box;
+  display: grid;
+  height: 100dvh;
+  max-width: 100%;
+  overflow: hidden;
+  gap: 1rem;
+  padding: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto minmax(0, 1fr) 30rem auto;
+  grid-template-areas:
+    'header header header'
+    'flights map tasks'
+    'weather map bus'
+    'status status status';
+}
+
+.dashboard-header {
+  grid-area: header;
+  display: grid;
+  grid-template-columns: minmax(0, 9fr) minmax(0, 3fr);
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.dashboard-title {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.dashboard-clock {
+  height: 6rem;
+  overflow: hidden;
+  padding: 0.5rem;
+}
+
+.dashboard-area {
+  min-width: 0;
+}
+
+.dashboard-area--flights {
+  grid-area: flights;
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dashboard-area--weather {
+  grid-area: weather;
+  min-height: 0;
+}
+
+.dashboard-area--weather > * {
+  height: 100%;
+}
+
+.dashboard-area--map {
+  grid-area: map;
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dashboard-area--tasks {
+  grid-area: tasks;
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dashboard-area--bus {
+  grid-area: bus;
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.dashboard-area--bus > * {
+  min-height: 0;
+  flex: 1;
+}
+
+.dashboard-area--status {
+  grid-area: status;
+  min-width: 0;
+}
+
+.dashboard-area-body {
+  min-height: 0;
+  min-width: 0;
+  flex: 1;
+}
+
+.dashboard-area-body > * {
+  height: 100%;
+}
+
+/* ------------------------------------------------------------------ */
+/* Phone: one scrolling column, sticky compact header.                 */
+/* ------------------------------------------------------------------ */
+
+.dashboard-shell[data-viewport='phone'] {
+  display: flex;
+  height: auto;
+  min-height: 100dvh;
+  overflow: visible;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: max(0.75rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right))
+    max(1rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
+}
+
+.dashboard-shell[data-viewport='phone'] .dashboard-header {
+  position: sticky;
+  top: max(0px, env(safe-area-inset-top));
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  background-color: #fffbeb;
+}
+
+.dashboard-shell[data-viewport='phone'] .dashboard-header h1 {
+  font-size: 1.125rem;
+}
+
+.dashboard-shell[data-viewport='phone'] .dashboard-clock {
+  width: 8rem;
+  height: 3rem;
+  flex: 0 0 auto;
+  padding: 0;
+}
+
+.dashboard-shell[data-viewport='phone'] .dashboard-area--weather {
+  height: auto;
+}
+
+.dashboard-shell[data-viewport='phone'] .dashboard-area--weather > * {
+  height: auto;
+}
+
+.dashboard-shell[data-viewport='phone'] .dashboard-area--bus {
+  height: 12rem;
+  flex: 0 0 auto;
+}
+
+/* Compact weather shows current conditions only until Details is expanded. */
+.dashboard-shell[data-viewport='phone'] .weather-block--compact {
+  height: 13rem;
+}
+
+.dashboard-shell[data-viewport='phone'] .weather-block--compact.weather-block--expanded {
+  height: auto;
+}
+
+.weather-block--compact:not(.weather-block--expanded) dl {
+  display: none;
+}
+
+@media (max-width: 359px) {
+  .dashboard-shell[data-viewport='phone'] .dashboard-area--bus {
+    height: 17rem;
+  }
+
+  .dashboard-shell[data-viewport='phone'] .weather-block--compact {
+    height: 15rem;
+  }
+
+  /* The relative-time column does not fit beside the badge at 320px. */
+  .dashboard-shell[data-viewport='phone'] .dashboard-area--bus .w-14 {
+    display: none;
+  }
+}
+
+/* Keep departures visible on the phone summary: auto-refresh still runs. */
+.dashboard-shell[data-viewport='phone']
+  .dashboard-area--bus
+  [data-testid='stop-card-widget']
+  > :first-child {
+  display: none;
+}
+
+.dashboard-shell[data-viewport='phone'] .dashboard-area--flights {
+  min-height: 24rem;
+}
+
+.dashboard-shell[data-viewport='phone'] .dashboard-area--map {
+  height: 18rem;
+}
+
+.dashboard-shell[data-viewport='phone'] button,
+.dashboard-shell[data-viewport='phone'] [role='button'],
+.dashboard-shell[data-viewport='phone'] a {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tablet: two columns, full-width header and status.                  */
+/* ------------------------------------------------------------------ */
+
+.dashboard-shell[data-viewport='tablet'] {
+  display: grid;
+  height: auto;
+  min-height: 100dvh;
+  overflow: visible;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto auto auto auto auto;
+  grid-template-areas:
+    'header header'
+    'flights weather'
+    'map tasks'
+    'map bus'
+    'status status';
+  padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
+    max(1.25rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+}
+
+.dashboard-shell[data-viewport='tablet'] .dashboard-area--weather {
+  height: 30rem;
+}
+
+.dashboard-shell[data-viewport='tablet'] .dashboard-area--flights {
+  min-height: 24rem;
+}
+
+.dashboard-shell[data-viewport='tablet'] .dashboard-area--map {
+  min-height: 32rem;
+}
+
+.dashboard-shell[data-viewport='tablet'] .dashboard-area--bus {
+  min-height: 24rem;
+}
+
+.dashboard-shell[data-viewport='tablet'] button,
+.dashboard-shell[data-viewport='tablet'] [role='button'],
+.dashboard-shell[data-viewport='tablet'] a {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion preference                                                   */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-shell,
+  .dashboard-shell * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
