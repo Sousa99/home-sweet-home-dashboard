@@ -1,9 +1,9 @@
 # Home Sweet Home — Dashboard
 
-A single, standalone **TV / large-screen dashboard** that brings together the Home Sweet Home
-modules. It embeds the **published** widget packages (`@sousa99/*-components`) and launches the
-module backends from their **published** GHCR images, so this repository stays small and needs no
-module source.
+A single, standalone **home dashboard** that brings together the Home Sweet Home modules on a TV,
+tablet, or phone. It embeds the **published** widget packages (`@sousa99/*-components`) and launches
+the module backends from their **published** GHCR images, so this repository stays small and needs
+no module source.
 
 ```
 ┌───────────────────────────────────────────────┬───────────────────────────────────────────────┐
@@ -33,8 +33,19 @@ module source.
 | Weather                  | `CurrentWeatherCard` (current + hourly) | `@sousa99/weather-psychic-components`        |
 | Status strip             | health probes per module                | — (dashboard)                                |
 
-The grid is **rem-based** (root font-size scales with viewport width) and scroll-free, so it
-renders well from 720p up to 4K.
+The grid is **rem-based** and adapts to four viewport classes:
+
+| Viewport                             | Arrangement                                                                        | Scrolling |
+| ------------------------------------ | ---------------------------------------------------------------------------------- | --------- |
+| Phone (< 640 px, or short landscape) | Single column, compact "Now" area (bus, weather, tasks), then flights, map, status | Vertical  |
+| Tablet (640–1023 px)                 | Two columns: flights + map left; weather, tasks, bus right                         | Vertical  |
+| Desktop (1024–1919 px)               | Three columns (the original dashboard arrangement)                                 | None      |
+| TV (≥ 1920 px)                       | Three columns, scaled by the root font-size clamp                                  | None      |
+
+Phone block order and per-class visibility are configurable under `layout` in
+[`public/config.json`](public/config.json); see
+[`docs/configuration.md`](docs/configuration.md#layout). Desktop and TV always keep the full
+three-column layout.
 
 ## Quick start
 
@@ -57,6 +68,14 @@ pnpm dev                                                            # Vite on :5
 
 The Vite dev proxy mirrors `deploy/nginx.conf`: `/api/bus`, `/api/tasks`, `/api/fly` and
 `/api/weather` are forwarded to the corresponding backend with the module prefix stripped.
+
+Layout checks run in headless Chromium at phone, tablet, desktop, and TV sizes. The suite mocks
+the module APIs, so no backends are required:
+
+```bash
+pnpm exec playwright install chromium   # one-time browser download
+pnpm test:e2e                           # screenshots + overflow/visibility assertions
+```
 
 ## Configuration
 

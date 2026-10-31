@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Dashboard layout configuration",
+  "description": "Optional `layout` section of public/config.json. Omitting the section yields the documented defaults.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "phoneOrder": {
+      "description": "Block order on phone after the clock/date header. Missing blocks are appended in default order; unknown and duplicate ids are ignored.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/definitions/blockId" }
+    },
+    "hiddenOnPhone": {
+      "description": "Blocks omitted from the phone layout. If this would hide every block, it is ignored.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/definitions/blockId" }
+    },
+    "hiddenOnTablet": {
+      "description": "Blocks omitted from the tablet layout. If this would hide every block, it is ignored.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/definitions/blockId" }
+    }
+  },
+  "definitions": {
+    "blockId": {
+      "type": "string",
+      "enum": ["weather", "bus", "tasks", "flights", "map", "status"]
+    }
+  },
+  "examples": [
+    {
+      "phoneOrder": ["bus", "weather", "tasks", "flights", "map", "status"],
+      "hiddenOnPhone": [],
+      "hiddenOnTablet": []
+    }
+  ]
+}

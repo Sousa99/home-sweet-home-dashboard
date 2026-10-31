@@ -27,6 +27,8 @@ pnpm install                                        # requires GitHub Packages a
 pnpm dev                                            # Vite dev server (:5173, proxies to :3100/:3101/:3102)
 pnpm build                                          # production SPA build → dist/
 pnpm test / pnpm typecheck / pnpm lint / pnpm format
+pnpm test:e2e                                       # Playwright layout matrix (mocked APIs)
+pnpm exec playwright install chromium               # one-time browser download
 docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d   # backends + dashboard
 docker compose up -d                                # dashboard on :3304 (HSH_DASHBOARD_PORT)
 ```
@@ -35,8 +37,9 @@ docker compose up -d                                # dashboard on :3304 (HSH_DA
 
 - **Identity**: package name `@sousa99/home-sweet-home-dashboard`; scoped deps come from
   `https://npm.pkg.github.com/` (see `.npmrc`, `setup.md`).
-- **Quality gates** (enforced on every PR): ESLint, Prettier, typecheck, Vitest, and a Docker
-  build. Configs extend `@sousa99/homesweethome-config` — no per-repo config drift.
+- **Quality gates** (enforced on every PR): ESLint, Prettier, typecheck, Vitest, the Playwright
+  responsive layout matrix, and a Docker build. Configs extend `@sousa99/homesweethome-config` — no
+  per-repo config drift.
 - **Test-first (non-negotiable)**: behavior changes start with a failing Vitest test, then
   implementation, then a green run.
 - **Proxy contract**: widgets are handed a per-module `baseUrl` (`/api/bus`, `/api/tasks`,
