@@ -13,6 +13,16 @@ The dashboard reads `public/config.json` at runtime and deep-merges it over the 
     "location": { "lat": 0, "lng": 0, "radiusKm": 100 },
     "autoRefresh": 30,
     "maxResults": 5,
+    "tileLayers": {
+      "light": {
+        "url": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        "attribution": "...",
+      },
+      "dark": {
+        "url": "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+        "attribution": "...",
+      },
+    },
   },
   "tasks": { "filters": {}, "refreshRateMs": 30000, "autoRotateMs": 4000 },
   "status": { "intervalMs": 30000 },
@@ -50,12 +60,13 @@ Each stop:
 
 ## flights
 
-| Key           | Default                     | Description                                                                                                       |
-| ------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `location`    | Lisbon (`38.7223, -9.1393`) | `{ lat, lng, radiusKm }` centre of the fly-over query.                                                            |
-| `autoRefresh` | `30`                        | Refresh rate: `"off"` or `5`, `10`, `30`, `60` (seconds).                                                         |
-| `maxResults`  | `5`                         | Max aircraft in the list (closest first); the map shows all.                                                      |
-| `debugMap`    | `false`                     | Log the map's measured size, zoom, re-fits, and tile load/error totals to the browser console (`[fly-over-map]`). |
+| Key           | Default                     | Description                                                                                                                                                                                                               |
+| ------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `location`    | Lisbon (`38.7223, -9.1393`) | `{ lat, lng, radiusKm }` centre of the fly-over query.                                                                                                                                                                    |
+| `autoRefresh` | `30`                        | Refresh rate: `"off"` or `5`, `10`, `30`, `60` (seconds).                                                                                                                                                                 |
+| `maxResults`  | `5`                         | Max aircraft in the list (closest first); the map shows all.                                                                                                                                                              |
+| `tileLayers`  | OSM light + Esri dark       | Basemap per appearance: `{ light: { url, attribution }, dark: { url, attribution } }`. The resolved appearance selects one; `url` must use Leaflet tile placeholders (for example `{z}/{x}/{y}` or Esri's `{z}/{y}/{x}`). |
+| `debugMap`    | `false`                     | Log the map's measured size, zoom, re-fits, and tile load/error totals to the browser console (`[fly-over-map]`).                                                                                                         |
 
 ## tasks
 

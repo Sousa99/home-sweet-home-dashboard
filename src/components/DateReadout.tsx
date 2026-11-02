@@ -18,7 +18,10 @@ export function useDate(): Date {
 export function DateReadout() {
   const now = useDate();
   return (
-    <time dateTime={now.toISOString()} className="text-sm font-medium text-slate-500">
+    <time
+      dateTime={now.toISOString()}
+      className="text-sm font-bold uppercase tracking-wide text-ink-muted"
+    >
       {DATE_FORMAT.format(now)}
     </time>
   );

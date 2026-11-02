@@ -14,16 +14,16 @@ export function BusBlock({
   const compactLimit = 2;
   return (
     <section className="flex h-full w-full flex-col gap-3 overflow-hidden" aria-label="Bus stops">
-      <header className="flex items-center gap-2 text-slate-700">
-        <Bus className="h-5 w-5 text-amber-600" aria-hidden="true" />
-        <h2 className="text-base font-semibold uppercase tracking-wider">Bus</h2>
+      <header className="flex items-center gap-2 text-ink">
+        <Bus className="h-5 w-5 text-accent" aria-hidden="true" />
+        <h2 className="font-display text-base font-black uppercase tracking-wider">Bus</h2>
       </header>
       {config.stops.length === 0 ? (
-        <div className="flex flex-1 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-amber-400/60 bg-amber-100/40 p-4 text-center">
-          <p className="text-sm font-medium text-slate-600">No stops configured</p>
-          <p className="text-xs text-slate-500">
-            Add stops to <code className="rounded bg-amber-100 px-1">bus.stops</code> in{' '}
-            <code className="rounded bg-amber-100 px-1">public/config.json</code>.
+        <div className="flex flex-1 flex-col items-center justify-center gap-2 rounded-brutal border-brutal bg-surface-alt p-4 text-center">
+          <p className="text-sm font-medium text-ink-muted">No stops configured</p>
+          <p className="text-xs text-ink-muted">
+            Add stops to <code className="rounded-brutal bg-surface px-1">bus.stops</code> in{' '}
+            <code className="rounded-brutal bg-surface px-1">public/config.json</code>.
           </p>
         </div>
       ) : (

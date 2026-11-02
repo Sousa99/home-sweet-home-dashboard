@@ -14,16 +14,19 @@ Each Home Sweet Home module is consumed by the dashboard as **two independent kn
 
 | Module                 | Components | Backend image |
 | ---------------------- | ---------- | ------------- |
-| bus-catcher            | `^0.2.0`   | `0.2.0`       |
-| fly-over-tracker       | `^0.5.0`   | `0.5.0`       |
-| procrastinator-tracker | `^0.2.0`   | `0.2.0`       |
-| current-time           | `^0.1.1`   | —             |
-| weather-psychic        | `^0.1.0`   | `0.1.0`       |
+| bus-catcher            | `^0.3.0`   | `0.3.0`       |
+| fly-over-tracker       | `^0.6.0`   | `0.6.0`       |
+| procrastinator-tracker | `^0.3.0`   | `0.3.0`       |
+| current-time           | `^0.2.0`   | —             |
+| weather-psychic        | `^0.2.0`   | `0.2.0`       |
 
-## Upgrading one module (example: bus-catcher → 0.2.0)
+Shared theme package: `@sousa99/homesweethome-theme` `^0.1.0` (consumed by the dashboard and every
+widget; not tied to a single module release).
 
-1. **Frontend** — in `package.json`, set `"@sousa99/bus-catcher-components": "^0.2.0"`, then `pnpm install`.
-2. **Backend** — in `.env`, set `HSH_BUS_CATCHER_BACKEND_VERSION=0.2.0`, then
+## Upgrading one module (example: bus-catcher → 0.3.0)
+
+1. **Frontend** — in `package.json`, set `"@sousa99/bus-catcher-components": "^0.3.0"`, then `pnpm install`.
+2. **Backend** — in `.env`, set `HSH_BUS_CATCHER_BACKEND_VERSION=0.3.0`, then
    `docker compose up -d`.
 3. The other three modules are untouched — their pins and tags stay where they are.
 
