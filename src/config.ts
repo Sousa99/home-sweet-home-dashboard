@@ -26,10 +26,19 @@ export interface BusConfig {
   stops: BusStopConfig[];
 }
 
+export interface TileLayerConfig {
+  /** Leaflet tile URL template (`{z}/{x}/{y}` placeholders). */
+  url: string;
+  /** Attribution HTML rendered by Leaflet for the tile provider. */
+  attribution: string;
+}
+
 export interface FlightsConfig {
   location: { lat: number; lng: number; radiusKm: number };
   autoRefresh: RefreshRate;
   maxResults: number;
+  /** Basemap per appearance; the resolved appearance selects one. */
+  tileLayers: { light: TileLayerConfig; dark: TileLayerConfig };
   /** Log the map's measured size/zoom/fits and tile load/error totals to the console. */
   debugMap: boolean;
 }
@@ -87,6 +96,18 @@ export const DEFAULT_CONFIG: DashboardConfig = {
     location: { lat: 38.7223, lng: -9.1393, radiusKm: 100 },
     autoRefresh: 30,
     maxResults: 5,
+    tileLayers: {
+      light: {
+        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      },
+      dark: {
+        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+        attribution:
+          'Tiles &copy; <a href="https://www.esri.com/">Esri</a> &mdash; Esri, HERE, Garmin, FAO, NOAA, USGS, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      },
+    },
     debugMap: false,
   },
   tasks: {

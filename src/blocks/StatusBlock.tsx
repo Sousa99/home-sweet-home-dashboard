@@ -48,48 +48,48 @@ export function StatusBlock({
 
     return (
       <footer
-        className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2"
+        className="flex items-center justify-between gap-3 rounded-brutal border-brutal bg-surface shadow-brutal px-4 py-2"
         role="contentinfo"
         aria-label="Module status"
       >
         <span className="flex items-center gap-2">
           <span
             className={`h-2.5 w-2.5 rounded-full ${
-              statuses.length === 0 ? 'bg-slate-400' : allUp ? 'bg-emerald-500' : 'bg-rose-500'
+              statuses.length === 0 ? 'bg-ink-muted' : allUp ? 'bg-ok' : 'bg-error'
             }`}
             role="status"
             aria-label={summary}
           />
-          <span className="text-sm font-semibold text-slate-600">{summary}</span>
+          <span className="text-sm font-semibold text-ink-muted">{summary}</span>
         </span>
         <span className="sr-only">{detail}</span>
-        <span className="text-xs text-slate-400">{checkedLabel}</span>
+        <span className="text-xs text-ink-muted">{checkedLabel}</span>
       </footer>
     );
   }
 
   return (
     <footer
-      className="flex items-center justify-between gap-4 rounded-xl border border-slate-200 bg-white px-4 py-2"
+      className="flex items-center justify-between gap-4 rounded-brutal border-brutal bg-surface shadow-brutal px-4 py-2"
       role="contentinfo"
       aria-label="Module status"
     >
-      <span className="text-sm font-semibold uppercase tracking-wider text-slate-600">System</span>
+      <span className="text-sm font-semibold uppercase tracking-wider text-ink-muted">System</span>
       <ul className="flex items-center gap-6">
         {statuses.map((s) => (
           <li key={s.key} className="flex items-center gap-2">
             <span
-              className={`h-2.5 w-2.5 rounded-full ${s.up ? 'bg-emerald-500' : 'bg-rose-500'}`}
+              className={`h-2.5 w-2.5 rounded-full ${s.up ? 'bg-ok' : 'bg-error'}`}
               role="status"
               aria-label={`${s.label} ${s.up ? 'online' : 'offline'}`}
             />
-            <span className={`text-sm font-medium ${s.up ? 'text-slate-700' : 'text-rose-600'}`}>
+            <span className={`text-sm font-medium ${s.up ? 'text-ink' : 'text-error'}`}>
               {s.label}
             </span>
           </li>
         ))}
       </ul>
-      <span className="text-xs text-slate-400">{checkedLabel}</span>
+      <span className="text-xs text-ink-muted">{checkedLabel}</span>
     </footer>
   );
 }

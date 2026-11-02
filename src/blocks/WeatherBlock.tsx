@@ -27,15 +27,15 @@ export function WeatherBlock({
       data-compact={compact ? 'true' : 'false'}
       data-expanded={compact && expanded ? 'true' : 'false'}
     >
-      <header className="flex items-center justify-between gap-2 text-slate-700">
+      <header className="flex items-center justify-between gap-2 text-ink">
         <div className="flex items-center gap-2">
-          <CloudSun className="h-5 w-5 text-amber-600" aria-hidden="true" />
-          <h2 className="text-base font-semibold uppercase tracking-wider">Weather</h2>
+          <CloudSun className="h-5 w-5 text-accent" aria-hidden="true" />
+          <h2 className="font-display text-base font-black uppercase tracking-wider">Weather</h2>
         </div>
         {compact && (
           <button
             type="button"
-            className="rounded-lg border border-amber-300 bg-white px-2 py-1 text-xs font-semibold text-amber-700"
+            className="rounded-brutal border-brutal bg-surface px-2 py-1 text-xs font-bold uppercase tracking-wide text-ink shadow-brutal"
             aria-expanded={expanded}
             onClick={() => setExpanded((value) => !value)}
           >

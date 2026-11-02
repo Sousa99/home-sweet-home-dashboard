@@ -11,6 +11,8 @@ import { StatusBlock } from '../blocks/StatusBlock';
 import { TasksBlock } from '../blocks/TasksBlock';
 import { WeatherBlock } from '../blocks/WeatherBlock';
 import { DateReadout } from '../components/DateReadout';
+import { ThemeControl } from '../theme/ThemeControl';
+import { useTheme } from '../theme/useTheme';
 import { Plane } from 'lucide-react';
 
 /**
@@ -26,14 +28,15 @@ export const BASE_URLS = {
 
 function FlightsHeading() {
   return (
-    <header className="flex items-center gap-2 text-slate-700">
-      <Plane className="h-5 w-5 text-amber-600" aria-hidden="true" />
-      <h2 className="text-base font-semibold uppercase tracking-wider">Flights</h2>
+    <header className="flex items-center gap-2 text-ink">
+      <Plane className="h-5 w-5 text-accent" aria-hidden="true" />
+      <h2 className="font-display text-base font-black uppercase tracking-wider">Flights</h2>
     </header>
   );
 }
 
 export function DashboardGrid({ config }: { config: DashboardConfig }) {
+  const theme = useTheme();
   const viewportClass = useViewportClass();
   const plan = resolveLayout(config.layout, viewportClass);
   const compact = plan.compact;
@@ -67,7 +70,11 @@ export function DashboardGrid({ config }: { config: DashboardConfig }) {
       >
         <FlightsHeading />
         <div className="dashboard-area-body">
-          <FlightMapBlock config={config.flights} baseUrl={BASE_URLS.fly} />
+          <FlightMapBlock
+            config={config.flights}
+            baseUrl={BASE_URLS.fly}
+            resolved={theme.resolved}
+          />
         </div>
       </section>
     ),
@@ -103,11 +110,20 @@ export function DashboardGrid({ config }: { config: DashboardConfig }) {
     >
       <header className="dashboard-header" role="banner">
         <div className="dashboard-title">
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Home Sweet Home</h1>
+          <h1 className="font-display text-2xl font-black uppercase tracking-tight text-ink">
+            Home Sweet Home
+          </h1>
           <DateReadout />
         </div>
-        <div className="dashboard-clock">
-          <ClockBlock config={config.clock} />
+        <div className="dashboard-header-actions">
+          <ThemeControl
+            preference={theme.preference}
+            resolved={theme.resolved}
+            onChange={theme.setPreference}
+          />
+          <div className="dashboard-clock">
+            <ClockBlock config={config.clock} />
+          </div>
         </div>
       </header>
 

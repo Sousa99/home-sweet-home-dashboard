@@ -5,10 +5,12 @@ import { DashboardGrid } from './layout/DashboardGrid';
 
 function LoadingShell() {
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-amber-50">
-      <div className="flex flex-col items-center gap-3">
-        <span className="h-3 w-3 animate-pulse rounded-full bg-amber-500" />
-        <p className="text-sm font-medium text-slate-500">Loading dashboard…</p>
+    <div className="flex h-screen w-screen items-center justify-center bg-bg">
+      <div className="flex flex-col items-center gap-3 rounded-brutal border-brutal bg-surface px-6 py-5 shadow-brutal">
+        <span className="h-3 w-3 animate-pulse rounded-full bg-accent" />
+        <p className="text-sm font-bold uppercase tracking-wide text-ink-muted">
+          Loading dashboard…
+        </p>
       </div>
     </div>
   );

@@ -47,6 +47,23 @@ Phone block order and per-class visibility are configurable under `layout` in
 [`docs/configuration.md`](docs/configuration.md#layout). Desktop and TV always keep the full
 three-column layout.
 
+## Appearance
+
+The dashboard and every module widget share a restrained **neo-brutalist** identity in two complete
+appearances: off-white/ink in light, near-black/ink in dark, with square corners, thick outlines,
+hard shadows, bold uppercase display type, and one accent per appearance.
+
+- **System / Light / Dark** control in the header. The manual choice persists in
+  `localStorage['hsh.dashboard.theme']`; clearing it (or choosing System) follows the device
+  preference. The boot script applies the stored appearance before the first paint, so hard reloads
+  never flash the wrong theme.
+- **Flight basemap** switches with the appearance via `flights.tileLayers` (OpenStreetMap in light,
+  Esri World Dark Gray in dark by default). See
+  [`docs/configuration.md`](docs/configuration.md#flights).
+- **Shared tokens** live in `@sousa99/homesweethome-theme`; widgets and the dashboard consume the same
+  semantic roles (`surface`, `ink`, `accent`, `outline`, status colors). Do not hardcode palette
+  classes or hex values — `pnpm test` includes a palette guard.
+
 ## Quick start
 
 ```bash

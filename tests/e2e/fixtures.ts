@@ -230,7 +230,7 @@ export async function installApiMocks(page: Page): Promise<void> {
     return json(route, { error: 'not_mocked', pathname }, 404);
   });
 
-  await page.route(/openstreetmap|cartocdn|tile\./, (route) =>
+  await page.route(/openstreetmap|arcgisonline|tile\./, (route) =>
     route.fulfill({
       status: 200,
       contentType: 'image/png',
